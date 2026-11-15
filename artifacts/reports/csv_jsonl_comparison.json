@@ -1,0 +1,49 @@
+{
+  "acquisition_time_utc": {
+    "csv_format_counts": {
+      "padded_4_digit": 1205303,
+      "unpadded_1_digit": 4950,
+      "unpadded_2_digit": 15306,
+      "unpadded_3_digit": 157193
+    },
+    "csv_non_padded_or_empty": 177449,
+    "csv_storage_type": "string",
+    "differences": [
+      "CSV preserves the zero-padded string form; JSONL stores the same field as a JSON number.",
+      "A numeric 118 cannot be distinguished from HHMM 11:08 without the documented padding rule."
+    ],
+    "jsonl_examples": [
+      118,
+      118,
+      118,
+      118,
+      118
+    ],
+    "jsonl_storage_type_sample": {
+      "int": 1000
+    },
+    "semantics_documented": "Time is HHMM UTC; '118' means 01:18 and must be zero-padded to '0118' before parsing."
+  },
+  "canonical_dataset_declared": false,
+  "columns": {
+    "csv_count": 33,
+    "jsonl_count": 33,
+    "only_csv": [],
+    "only_jsonl": [],
+    "sets_equal": true
+  },
+  "generated_at_utc": "2026-11-09T03:57:39.034559+00:00",
+  "reason_not_declared": "Phase 0 freezes inputs only. Reconciliation and canonicalization are Phase 1 work.",
+  "required_canonicalization": [
+    "Normalize acquisition_time_utc to a validated HHMM value (00:00-23:59) with explicit leading zeros.",
+    "Prove row-level equivalence between CSV and JSONL before selecting one as authoritative.",
+    "Record the chosen authority and the equivalence evidence in the Phase 1 data contract."
+  ],
+  "row_counts": {
+    "csv": 1382752,
+    "equal": true,
+    "jsonl": 1382752
+  },
+  "schema_version": "phase0.csv_jsonl_comparison.v1",
+  "source_archive_sha256": "09aa2c1da7fbb8d030df5dc6faa0b95ba879a1fffd44374d7fd95aa77d2db0b8"
+}

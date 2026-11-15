@@ -1,0 +1,33 @@
+# Python
+.venv/
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.ruff_cache/
+
+# Data: raw inputs are frozen and may be large; processed artifacts are regenerable
+data/raw/*
+!data/raw/.gitkeep
+data/interim/*
+!data/interim/.gitkeep
+data/processed/*
+!data/processed/.gitkeep
+data/quarantine/*
+!data/quarantine/.gitkeep
+
+# Generated provenance and verification artifacts are kept: they are the audit trail.
+# (Large scientific outputs from later phases will be ignored selectively.)
+
+# OS
+Thumbs.db
+desktop.ini
+~$*
+
+# Node / dashboard
+frontend/node_modules/
+frontend/dist/
+frontend/*.tsbuildinfo
+
+# Local service logs
+artifacts/*.log
+*.log

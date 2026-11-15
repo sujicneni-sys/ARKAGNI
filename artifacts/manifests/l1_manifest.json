@@ -1,0 +1,121 @@
+{
+  "checks": {
+    "all_times_valid": true,
+    "canonical_rows_match_baseline": true,
+    "frozen_inputs_unchanged": true,
+    "unique_observation_ids": true,
+    "zero_frp_not_invalid": true
+  },
+  "equivalence_report": "artifacts/reports/l1_csv_jsonl_equivalence.json",
+  "generated_at_utc": "2026-11-09T04:13:02.025027+00:00",
+  "inputs": {
+    "MODIS": {
+      "bytes": 33340214,
+      "path": "data/cleaned/MODIS_SP_cleaned.csv",
+      "rows": 166733,
+      "sha256": "b700c6c752001a1687d174e7dc0a4101de9826f660025feb9354a785847068ae"
+    },
+    "VIIRS_NOAA20": {
+      "bytes": 141963146,
+      "path": "data/cleaned/VIIRS_NOAA20_SP_cleaned.csv",
+      "rows": 670823,
+      "sha256": "e94747a61c8d79c9475a8dee09dd4d4ee99fd7f511b804847324969ca9daba4b"
+    },
+    "VIIRS_SNPP": {
+      "bytes": 113190858,
+      "path": "data/cleaned/VIIRS_SNPP_SP_cleaned.csv",
+      "rows": 545196,
+      "sha256": "66ab095b2f9448ebabe4ed7493ea3703d13be4e9b593fb989e4785ef2fa9d67b"
+    }
+  },
+  "output": {
+    "bytes": 47258586,
+    "column_order": [
+      "latitude",
+      "longitude",
+      "brightness",
+      "scan",
+      "track",
+      "acq_date",
+      "acq_time",
+      "satellite",
+      "instrument",
+      "confidence",
+      "version",
+      "bright_t31",
+      "frp",
+      "daynight",
+      "type",
+      "source_product",
+      "sampling_region",
+      "sample_window_start",
+      "sample_window_days",
+      "confidence_raw",
+      "quality_flag_invalid_frp",
+      "quality_flag_invalid_scan_track",
+      "brightness_temperature_primary_k",
+      "brightness_temperature_secondary_k",
+      "brightness_primary_source",
+      "confidence_encoding",
+      "acquisition_date",
+      "acquisition_time_utc",
+      "observation_id",
+      "l1_row_id",
+      "l1_source_file",
+      "l1_sensor_key",
+      "l1_platform",
+      "l1_time_raw",
+      "l1_time_utc_hhmm",
+      "l1_time_was_padded",
+      "l1_time_status",
+      "l1_frp_status",
+      "l1_validity_zero_frp",
+      "l1_validity_negative_frp",
+      "l1_validity_missing_frp",
+      "l1_validity_invalid_coords",
+      "l1_validity_invalid_scan_track",
+      "l1_validity_duplicate_id",
+      "l1_quality_status",
+      "acquisition_timestamp_utc",
+      "bright_ti4",
+      "bright_ti5"
+    ],
+    "columns": 48,
+    "derived_columns": [
+      "l1_row_id",
+      "l1_source_file",
+      "l1_sensor_key",
+      "l1_platform",
+      "l1_time_raw",
+      "l1_time_utc_hhmm",
+      "l1_time_was_padded",
+      "l1_time_status",
+      "l1_frp_status",
+      "l1_validity_zero_frp",
+      "l1_validity_negative_frp",
+      "l1_validity_missing_frp",
+      "l1_validity_invalid_coords",
+      "l1_validity_invalid_scan_track",
+      "l1_validity_duplicate_id",
+      "l1_quality_status",
+      "acquisition_timestamp_utc"
+    ],
+    "path": "data/processed/l1_canonical.parquet",
+    "rows": 1382752,
+    "sha256": "49d0f3178c1ad75cc261ed880b4844e0abe32080a90e984159995b278e345a0f"
+  },
+  "phase0": {
+    "archive_sha256": "09aa2c1da7fbb8d030df5dc6faa0b95ba879a1fffd44374d7fd95aa77d2db0b8",
+    "manifest": "artifacts/manifests/phase0_manifest.json",
+    "manifest_sha256": "590d93210c28880a2277be12834adbfd062d691477a89f8b196bd5fadf3bef64"
+  },
+  "qc_report": "artifacts/reports/l1_qc.json",
+  "rules": {
+    "build_script_sha256": "f7055b21abcea80987acd322cddcea90dcefabc922d9ae641a67214bf9c90d72",
+    "equivalence_module_sha256": "9f46cdb6c9d0ad9bb65b16e43ff30f80e628ff994b3d483c7fab4af9517e7cc8",
+    "module": "src/pyroharmonize/l1.py",
+    "module_sha256": "e1e544824c576093f7aa56047f4fd56b5902b31b6d19e0f53a50cc2180d81808",
+    "version": "l1-rules-v1"
+  },
+  "schema_version": "l1.manifest.v1"
+}

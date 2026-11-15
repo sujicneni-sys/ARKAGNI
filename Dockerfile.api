@@ -1,0 +1,48 @@
+# syntax=docker/dockerfile:1
+
+# Build the React dashboard into frontend/dist.
+FROM node:22-alpine AS frontend
+
+WORKDIR /app
+COPY frontend/package.json frontend/package-lock.json ./
+RUN npm ci
+
+COPY frontend/ ./
+RUN npm run build
+
+FROM python:3.12-slim-bookworm
+
+ENV PYTHONDONTWRITEBYTECODE=1 \
+    PYTHONUNBUFFERED=1 \
+    PIP_NO_CACHE_DIR=1 \
+    PIP_DISABLE_PIP_VERSION_CHECK=1
+
+WORKDIR /app
+
+RUN groupadd --system pyro && useradd --system --gid pyro --create-home pyro
+
+COPY requirements-api.txt ./
+RUN pip install --upgrade pip && pip install -r requirements-api.txt
+
+COPY backend ./backend
+COPY config.yaml ./config.yaml
+COPY data/adapters.py data/__init__.py ./data/
+COPY data/processed ./data/processed
+
+# Built SPA served by FastAPI at / - one origin, one port.
+COPY --from=frontend /app/dist ./frontend/dist
+
+# Real cleaned FIRMS sources used by backend/ingestion.py at startup.  Keep the
+# documented hash order and filenames unchanged.  For a leaner image, remove
+# these three COPY lines and bind-mount the same files read-only at /app/data.
+COPY MODIS_SP_cleaned.csv VIIRS_SNPP_SP_cleaned.csv VIIRS_NOAA20_SP_cleaned.csv ./data/cleaned/
+
+RUN chown -R pyro:pyro /app
+USER pyro
+
+EXPOSE 8000
+
+HEALTHCHECK --interval=30s --timeout=5s --start-period=120s --retries=3 \
+  CMD python -c "import urllib.request; urllib.request.urlopen('http://127.0.0.1:8000/health', timeout=4)"
+
+CMD ["uvicorn", "backend.main:app", "--host", "0.0.0.0", "--port", "8000", "--proxy-headers", "--forwarded-allow-ips=*"]

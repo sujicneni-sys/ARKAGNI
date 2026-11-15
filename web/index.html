@@ -1,0 +1,410 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Arkagni — Cross-Sensor Fire Harmonization</title>
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<div class="app">
+  <aside class="rail">
+    <div class="brand">
+      <h1>ARKAGNI</h1>
+      <div class="sub">Cross-Sensor Fire Harmonization</div>
+    </div>
+    <nav class="nav" aria-label="Primary">
+      <button class="active" data-page="overview"><span class="idx">01</span> Overview</button>
+      <button data-page="explorer"><span class="idx">02</span> Data Explorer</button>
+      <button data-page="harmonization"><span class="idx">03</span> FRP Harmonization</button>
+      <button data-page="uncertainty"><span class="idx">04</span> Uncertainty Analysis</button>
+      <button data-page="models"><span class="idx">05</span> Model Comparison</button>
+      <button data-page="audit"><span class="idx">06</span> Audit &amp; Validation</button>
+      <button data-page="methodology"><span class="idx">07</span> Methodology</button>
+    </nav>
+    <div class="rail-foot">
+      <div><span class="dot"></span><span id="rail-status">Loading verified results…</span></div>
+      <div class="line"><span>Dataset</span><span class="mono" id="rail-datahash">—</span></div>
+      <div class="line"><span>Model</span><span class="mono" id="rail-model">—</span></div>
+      <div class="line"><span>Hash</span><span class="mono" id="rail-resultshash">—</span></div>
+    </div>
+  </aside>
+
+  <div class="main">
+    <header class="topbar">
+      <div>
+        <div class="page-title" id="page-title">Satellite Fire Data Harmonization</div>
+        <div class="page-desc" id="page-desc">Understanding and correcting FRP differences between Aqua MODIS and Suomi-NPP VIIRS.</div>
+      </div>
+      <div class="status">
+        <span class="badge info"><span class="sym">◐</span> Research mode</span>
+        <span class="badge ok" id="top-model-badge"><span class="sym">✓</span> H served</span>
+        <span class="badge none" id="top-api-badge"><span class="sym">○</span> API checking</span>
+      </div>
+    </header>
+
+    <main class="content">
+      <!-- ============================ OVERVIEW ============================ -->
+      <section class="page" id="page-overview">
+        <div class="page-head">
+          <div class="kicker">The product in one view</div>
+          <h1>Satellite Fire Data Harmonization</h1>
+        </div>
+
+        <div class="metric-strip four" id="overview-metrics">
+          <div class="metric"><div class="label">Raw observations</div><div class="value" data-bind="rows">—</div><div class="hint" data-bind="date-range">verified L1 rows</div></div>
+          <div class="metric"><div class="label">Matched Aqua–SNPP pairs</div><div class="value" data-bind="pairs">—</div><div class="hint">1° cell-days</div></div>
+          <div class="metric"><div class="label">Study regions</div><div class="value" data-bind="regions">—</div><div class="hint">discrete 5-day windows</div></div>
+          <div class="metric"><div class="label">Overall conformal coverage</div><div class="value" data-bind="coverage">—</div><div class="hint">80% nominal; honest nested</div></div>
+        </div>
+
+        <div class="grid side mt">
+          <div class="panel">
+            <div class="panel-head"><h2>Geographic study area</h2><span class="meta">region-level representation · not individual fire footprints</span></div>
+            <div id="region-map" aria-label="Study region map"></div>
+            <p class="small muted mt-sm">Rectangles show the latitude/longitude envelope of actual validated observations. No individual fire locations or invented footprints are drawn.</p>
+          </div>
+          <div class="stack">
+            <div class="panel">
+              <div class="panel-head"><h2>Key findings</h2><span class="meta">measured, not assumed</span></div>
+              <div id="key-findings" class="findings small"></div>
+            </div>
+            <div class="panel">
+              <div class="panel-head"><h3>Research workflow</h3><span class="meta">built state</span></div>
+              <div id="workflow" class="small"></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="grid two mt">
+          <div class="panel">
+            <div class="panel-head"><h3>Data composition</h3><span class="meta">actual counts</span></div>
+            <div id="composition-chart"></div>
+          </div>
+          <div class="panel">
+            <div class="panel-head"><h3>Delay support</h3><span class="meta">Aqua minus 13.6 h</span></div>
+            <div id="delay-support-chart"></div>
+            <p class="small muted mt-sm">The late-delay bins are narrow. The system refuses cells outside the calibrated delay domain rather than extrapolating a number.</p>
+          </div>
+        </div>
+
+        <div class="limitations" id="overview-limitations"></div>
+      </section>
+
+      <!-- ============================ DATA EXPLORER ============================ -->
+      <section class="page" id="page-explorer" hidden>
+        <div class="page-head">
+          <div class="kicker">Composition, provenance and validation</div>
+          <h1>Data Explorer</h1>
+          <p class="lede">Every row below is loaded from the frozen L1 canonical table. Times are shown in UTC and local solar time with the derivation visible. Filters update the table, not a mock dataset.</p>
+        </div>
+
+        <div class="metric-strip four" id="explorer-metrics">
+          <div class="metric"><div class="label">Total observations</div><div class="value" data-bind="rows">—</div><div class="hint">L1 canonical rows</div></div>
+          <div class="metric"><div class="label">MODIS observations</div><div class="value" data-bind="modis">—</div><div class="hint" data-bind="modis-split">Aqua + Terra</div></div>
+          <div class="metric"><div class="label">VIIRS NOAA-20</div><div class="value" data-bind="n20">—</div><div class="hint">N20</div></div>
+          <div class="metric"><div class="label">VIIRS Suomi-NPP</div><div class="value" data-bind="snpp">—</div><div class="hint">N</div></div>
+        </div>
+
+        <div class="grid three mt">
+          <div class="panel"><div class="panel-head"><h3>Satellite distribution</h3></div><div id="chart-satellite"></div></div>
+          <div class="panel"><div class="panel-head"><h3>Regional distribution</h3></div><div id="chart-region"></div></div>
+          <div class="panel"><div class="panel-head"><h3>Year distribution</h3></div><div id="chart-year"></div></div>
+        </div>
+
+        <div class="panel mt">
+          <div class="panel-head"><h2>Observation records</h2><span class="meta" id="obs-total">—</span></div>
+          <div class="grid" style="grid-template-columns: repeat(6, minmax(0,1fr)); gap: 10px;">
+            <div class="field"><label for="f-region">Region</label><select id="f-region"><option value="">All regions</option></select></div>
+            <div class="field"><label for="f-satellite">Satellite</label><select id="f-satellite"><option value="">All satellites</option><option value="Aqua">Aqua</option><option value="Terra">Terra</option><option value="N">Suomi-NPP</option><option value="N20">NOAA-20</option></select></div>
+            <div class="field"><label for="f-year">Year</label><select id="f-year"><option value="">All years</option></select></div>
+            <div class="field"><label for="f-status">Validation</label><select id="f-status"><option value="">All states</option><option value="validated">Validated</option><option value="flagged">Flagged</option><option value="excluded">Excluded</option></select></div>
+            <div class="field"><label for="f-daynight">Day / night</label><select id="f-daynight"><option value="">Both</option><option value="D">Day</option><option value="N">Night</option></select></div>
+            <div class="field"><label for="f-search">Search</label><input id="f-search" type="search" placeholder="Observation ID or cell"></div>
+          </div>
+          <div class="callout neutral mt-sm" id="explorer-note" hidden></div>
+          <div class="table-wrap mt-sm">
+            <table>
+              <thead><tr><th>Observation ID</th><th>Satellite</th><th>Region</th><th>Cell</th><th class="num">Lat</th><th class="num">Lon</th><th>Date</th><th>UTC</th><th class="num">LST</th><th class="num">FRP (MW)</th><th class="num">Scan (km)</th><th>Status</th></tr></thead>
+              <tbody id="obs-body"><tr><td colspan="12" class="loading">Loading actual records…</td></tr></tbody>
+            </table>
+          </div>
+          <div class="split mt-sm">
+            <div class="small muted" id="obs-page-info">—</div>
+            <div class="btn-row"><button class="btn secondary small-btn" id="obs-prev">← Previous</button><button class="btn secondary small-btn" id="obs-next">Next →</button></div>
+          </div>
+        </div>
+
+        <div class="limitations" id="explorer-limitations"></div>
+      </section>
+
+      <!-- ============================ HARMONIZATION ============================ -->
+      <section class="page" id="page-harmonization" hidden>
+        <div class="page-head">
+          <div class="kicker">Primary product</div>
+          <h1>FRP Harmonization</h1>
+          <p class="lede">Map one Aqua MODIS cell-day to the SNPP VIIRS 13.6 h reference. Inputs are validated at the boundary; the API returns either a calibrated 80% interval or a stated refusal. It never fills an unsupported cell with a number.</p>
+        </div>
+
+        <div class="grid harm">
+          <div class="panel">
+            <div class="panel-head"><h2>Input workspace</h2><span class="meta">cell-day unit only</span></div>
+            <div class="form-grid">
+              <div class="field"><label for="h-region">Region <span class="req">*</span></label><select id="h-region"></select><div class="hint">Supported training regions only.</div></div>
+              <div class="field"><label for="h-date">Acquisition date <span class="req">*</span></label><input id="h-date" type="date"><div class="hint" id="h-date-hint">Verified 5-day windows only.</div></div>
+              <div class="field"><label for="h-lat">Cell latitude (°) <span class="req">*</span></label><input id="h-lat" type="number" step="0.0001" value="-12.3456"><div class="hint" id="h-snap">Resolved cell —</div></div>
+              <div class="field"><label for="h-lon">Cell longitude (°) <span class="req">*</span></label><input id="h-lon" type="number" step="0.0001" value="25.6789"><div class="hint">1° grid; output is the cell-day aggregate.</div></div>
+              <div class="field wide"><label for="h-frp">Aqua FRP sum (MW) <span class="req">*</span></label><div class="range-row"><input id="h-frp-range" type="range" min="0" max="1000" value="500"><input id="h-frp" type="number" min="0.001" step="0.1" value="180"><div class="hint">Log scale</div></div><div class="hint" id="h-frp-hint">0.001–5,000 MW display range; direct entry is authoritative.</div></div>
+              <div class="field"><label for="h-n">Number of detections <span class="req">*</span></label><input id="h-n" type="number" min="1" step="1" value="12"><div class="hint">Aqua pixels in the cell-day.</div></div>
+              <div class="field"><label for="h-lst">Aqua local solar time <span class="req">*</span></label><input id="h-lst" type="time" step="60" value="14:54"><div class="hint">Never enter the padded integer form.</div></div>
+              <div class="field"><label for="h-scan">Aqua scan angle / scan size <span class="req">*</span></label><input id="h-scan" type="number" min="0.1" step="0.01" value="1.3"><div class="hint">FIRMS scan field in km, matching training.</div></div>
+              <div class="field"><label>Resolved grid</label><div class="eq" id="h-cell-label">—</div></div>
+              <div class="field wide"><label>Instrumentation state</label><div class="btn-row"><span class="chip future">Saturation · NOT EVALUATED</span><span class="chip future">Plume · NOT EVALUATED</span><span class="chip future">Canopy · NOT EVALUATED</span></div></div>
+            </div>
+            <div class="btn-row mt"><button class="btn" id="h-run">Run Harmonization</button><button class="btn secondary" id="h-reset">Reset</button><span class="small muted" id="h-status">Ready. Calls the live POST /harmonize.</span></div>
+            <div class="hr"></div>
+            <div class="panel-head"><h3>Actual observations</h3><span class="meta">from the pair table</span></div>
+            <div id="h-examples" class="stack"></div>
+            <p class="table-note">These are real matched cell-days, not demo values. Loading one fills the form; the API result is still computed live.</p>
+          </div>
+
+          <div class="stack">
+            <div class="panel result-panel">
+              <div class="panel-head"><h2>Result</h2><span class="badge none" id="h-applicability"><span class="sym">○</span> Not run</span></div>
+              <div class="result-empty" id="h-empty">The interval is the primary output. Submit a cell-day to see the 80% conformal range and the applicability verdict.</div>
+              <div id="h-result" hidden></div>
+            </div>
+
+            <div class="panel" id="h-regional-panel" hidden>
+              <div class="panel-head"><h3>Regional performance caution</h3><span class="meta">leave-one-region-out</span></div>
+              <div id="h-regional"></div>
+            </div>
+
+            <details class="details">
+              <summary>How was this result calculated?</summary>
+              <div class="body">
+                <div class="eq">y = ln(FRP_Aqua / FRP_SNPP)</div>
+                <div class="eq">ŷ = c + g(t_Aqua) − g(13.6) + regional adjustment</div>
+                <div class="eq">Harmonized FRP = FRP_Aqua × exp(−ŷ)</div>
+                <p class="small">The model estimates how far the Aqua value is expected to differ from the SNPP reference because of overpass timing relative to 13.6 h, adds a regional offset, then rescales Aqua FRP by the exponential of that estimate. The interval is a split-conformal 80% band calibrated by delay bin. The gate refuses unsupported cells.</p>
+                <p class="small muted" id="h-provenance">—</p>
+              </div>
+            </details>
+
+            <div class="panel">
+              <div class="panel-head"><h3>Operational safeguards</h3></div>
+              <ul class="small">
+                <li>Pixel-level or event-level payloads are rejected; the served unit is a 1° cell-day.</li>
+                <li>The aggregator config hash must match the training aggregation.</li>
+                <li>Scan and delay outside the measured domain are refused.</li>
+                <li>Saturation, plume scattering and canopy occlusion stay not evaluated.</li>
+                <li>The point estimate is not a guarantee; read the interval.</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <div class="limitations" id="harm-limitations"></div>
+      </section>
+
+      <!-- ============================ UNCERTAINTY ============================ -->
+      <section class="page" id="page-uncertainty" hidden>
+        <div class="page-head">
+          <div class="kicker">Reliability and limits</div>
+          <h1>Prediction Reliability</h1>
+          <p class="lede">Conformal coverage is measured by delay bin with the evaluated sampling block excluded from calibration. Where support is thin the empirical coverage falls and the gate refuses the cell.</p>
+        </div>
+
+        <div class="grid side">
+          <div class="panel">
+            <div class="panel-head"><h2>Conformal coverage by delay bin</h2><span class="meta">80% nominal · honest nested estimate</span></div>
+            <div id="coverage-chart"></div>
+            <div class="chart-legend"><span><i class="swatch" style="background:var(--sage)"></i> empirical coverage</span><span><i class="swatch" style="background:var(--terracotta)"></i> 80% nominal</span></div>
+          </div>
+          <div class="panel">
+            <div class="panel-head"><h3>Gate table</h3><span class="meta">pre-registered rules</span></div>
+            <div class="table-wrap"><table><thead><tr><th>Delay bin</th><th class="num">n</th><th class="num">Coverage</th><th>Verdict</th></tr></thead><tbody id="gate-body"></tbody></table></div>
+            <p class="table-note">Gate: at least 40 calibration pairs and out-of-fold coverage of at least 0.70. A bin that fails is refused, not silently trusted.</p>
+          </div>
+        </div>
+
+        <div class="grid two mt">
+          <div class="panel">
+            <div class="panel-head"><h3>Applicability domain</h3><span class="meta">measured training ranges</span></div>
+            <div id="domain-panel" class="small"></div>
+          </div>
+          <div class="panel">
+            <div class="panel-head"><h3>Interval behaviour</h3></div>
+            <div id="interval-explainer" class="small"></div>
+          </div>
+        </div>
+
+        <div class="grid two mt">
+          <div class="panel">
+            <div class="panel-head"><h3>FRE trend audit</h3><span class="meta" id="trend-meta">annual validated FRP total</span></div>
+            <div id="trend-chart"></div>
+            <div id="trend-note" class="callout neutral mt-sm"></div>
+          </div>
+          <div class="panel">
+            <div class="panel-head"><h3>Identifiability</h3><span class="meta">late-delay support</span></div>
+            <div id="identifiability"></div>
+          </div>
+        </div>
+
+        <div class="limitations" id="unc-limitations"></div>
+      </section>
+
+      <!-- ============================ MODELS ============================ -->
+      <section class="page" id="page-models" hidden>
+        <div class="page-head">
+          <div class="kicker">Compare without declaring an unsupported winner</div>
+          <h1>Model Performance</h1>
+          <p class="lede">Lower grouped-CV RMSE means lower prediction error in log-ratio units. H is the served physics-structured model; M and PR are research comparisons. The selection evidence is shown even when it disagrees with the serving decision.</p>
+        </div>
+
+        <div class="grid side">
+          <div class="panel">
+            <div class="panel-head"><h2>Grouped cross-validation RMSE</h2><span class="meta">fold = whole 5-day sampling window</span></div>
+            <div id="model-rmse-chart"></div>
+            <div class="chart-legend"><span><i class="swatch" style="background:var(--sage)"></i> physics / operational</span><span><i class="swatch" style="background:var(--slate)"></i> statistical ML / research</span></div>
+          </div>
+          <div class="panel">
+            <div class="panel-head"><h3>Pre-registered selection</h3><span class="meta">LOYO RMSE on 2021 + 2023</span></div>
+            <div id="selection-panel"></div>
+          </div>
+        </div>
+
+        <div class="panel mt">
+          <div class="panel-head"><h2>Model scorecard</h2><span class="meta">measured on 6,313 Aqua–SNPP pairs</span></div>
+          <div class="table-wrap"><table><thead><tr><th>Model</th><th>Role</th><th class="num">RMSE (ln)</th><th class="num">Bias (ln)</th><th class="num">MAE (ln)</th><th class="num">n</th><th>Serving</th></tr></thead><tbody id="model-table"></tbody></table></div>
+          <p class="table-note">RMSE around 1.0 ln is the cell-day noise floor. A lower RMSE is not evidence that a model removes timing bias; it may be learning sampling coverage instead.</p>
+        </div>
+
+        <div class="grid two mt">
+          <div class="panel">
+            <div class="panel-head"><h3>Operational regime (served)</h3><span class="badge ok"><span class="sym">✓</span> H active</span></div>
+            <div id="operational-models" class="small"></div>
+          </div>
+          <div class="panel">
+            <div class="panel-head"><h3>Research only</h3><span class="badge info"><span class="sym">◐</span> not switchable</span></div>
+            <div id="research-models" class="small"></div>
+          </div>
+        </div>
+
+        <div class="panel mt">
+          <div class="panel-head"><h3>Regional transfer (leave-one-region-out)</h3><span class="meta">H vs P vs raw baseline</span></div>
+          <div class="table-wrap"><table><thead><tr><th>Region</th><th class="num">n</th><th class="num">B0 raw RMSE</th><th class="num">P RMSE</th><th class="num">H RMSE</th><th>Reading</th></tr></thead><tbody id="loyo-body"></tbody></table></div>
+          <p class="table-note">A regional RMSE is a validation score for that region, not the uncertainty of an individual prediction. Missing regional results are not invented.</p>
+        </div>
+
+        <div class="limitations" id="model-limitations"></div>
+      </section>
+
+      <!-- ============================ AUDIT ============================ -->
+      <section class="page" id="page-audit" hidden>
+        <div class="page-head">
+          <div class="kicker">Evidence, assumptions and weaknesses</div>
+          <h1>Scientific Audit</h1>
+          <p class="lede">The audit asks how wrong the correction could be and where. It reports the parts that fail, including the Amazon transfer result and the thin support above 2 h.</p>
+        </div>
+
+        <div class="grid two">
+          <div class="panel">
+            <div class="panel-head"><h2>Bias by delay bin</h2><span class="meta">raw vs corrected, out-of-fold</span></div>
+            <div id="bias-chart"></div>
+            <div class="chart-legend"><span><i class="swatch" style="background:var(--slate)"></i> raw bias</span><span><i class="swatch" style="background:var(--sage)"></i> corrected (H)</span></div>
+          </div>
+          <div class="panel">
+            <div class="panel-head"><h2>Pairing sensitivity</h2><span class="meta">OLS slope with block-bootstrap 95% CI</span></div>
+            <div id="pairing-chart"></div>
+            <div id="pairing-note" class="callout neutral mt-sm"></div>
+          </div>
+        </div>
+
+        <div class="grid three mt">
+          <div class="panel"><div class="panel-head"><h3>Terra out-of-regime</h3></div><div id="terra-panel"></div></div>
+          <div class="panel"><div class="panel-head"><h3>Regional transfer</h3></div><div id="audit-loyo"></div></div>
+          <div class="panel"><div class="panel-head"><h3>Audit status</h3></div><div id="audit-status"></div></div>
+        </div>
+
+        <div class="panel mt">
+          <div class="panel-head"><h2>Validity map</h2><span class="meta">counts and gate verdict by region and delay</span></div>
+          <div class="table-wrap"><table><thead><tr><th>Region</th><th>Delay bin</th><th class="num">Pairs</th><th class="num">Applicable</th><th class="num">Coverage</th><th>Gate</th></tr></thead><tbody id="validity-body"></tbody></table></div>
+          <p class="table-note">Applicable counts use the pre-registered gate and the measured delay/scan domain. A refused cell remains visible with its reason.</p>
+        </div>
+
+        <div class="panel mt">
+          <div class="panel-head"><h2>Status language</h2></div>
+          <div class="grid three small">
+            <div><span class="badge ok"><span class="sym">✓</span> Measured</span><p class="mt-sm">Grouped CV, regional transfer, conformal coverage, Terra test, pairing sensitivity, FRE trend, identifiability.</p></div>
+            <div><span class="badge warn"><span class="sym">⚠</span> Pending validation</span><p class="mt-sm">Pairing-confound test with scan control, bin-level bootstrap bias intervals, independent reference data, feature-importance analysis.</p></div>
+            <div><span class="badge none"><span class="sym">○</span> Not evaluated</span><p class="mt-sm">Saturation, plume scattering, canopy occlusion. These are never inferred from FRP magnitude alone.</p></div>
+          </div>
+        </div>
+
+        <div class="limitations" id="audit-limitations"></div>
+      </section>
+
+      <!-- ============================ METHODOLOGY ============================ -->
+      <section class="page" id="page-methodology" hidden>
+        <div class="page-head">
+          <div class="kicker">Readable technical methodology</div>
+          <h1>Technical Methodology</h1>
+          <p class="lede">The pipeline is reproducible from the frozen inputs, a config hash and a model artifact hash. Every reported number comes from the real tables; unavailable states are labelled rather than filled.</p>
+        </div>
+
+        <div class="panel">
+          <div class="toc">
+            <a href="#m-provenance">1 Dataset and provenance</a><a href="#m-cleaning">2 Cleaning and validation</a><a href="#m-cell">3 Cell-day aggregation</a><a href="#m-pairing">4 Satellite pairing</a><a href="#m-delay">5 Delay</a><a href="#m-model">6 Model architecture</a><a href="#m-equation">7 Harmonization equation</a><a href="#m-conformal">8 Conformal uncertainty</a><a href="#m-gate">9 Applicability domain</a><a href="#m-audit">10 Audit methodology</a><a href="#m-limits">11 Known limitations</a>
+          </div>
+        </div>
+
+        <div class="grid two mt">
+          <div class="stack">
+            <div class="panel" id="m-provenance"><h3>1. Dataset and data provenance</h3><p class="small">Three FIRMS standard-product cleaned CSVs (MODIS, SNPP, NOAA-20) are frozen read-only. The documented <span class="mono">data_hash</span> is SHA-256 of the three per-file SHA-256 digests concatenated in order MODIS, SNPP, NOAA-20. It begins <span class="mono" id="m-datahash">—</span>.</p><p class="small">The source archive is preserved untouched. L1 canonicalization types the frozen cleaned baseline and adds explicit validity fields; it never rewrites the input bytes.</p></div>
+            <div class="panel" id="m-cleaning"><h3>2. Data cleaning and validation</h3><p class="small">Rows are never deleted. A uint8 flag records <span class="mono">type != 0</span>, <span class="mono">FRP &lt;= 0</span> and night. The validated set requires all three flags clear. Zero FRP is flagged, not silently repaired; no negative FRP is present in this sample.</p><div class="eq">validated = (flags &amp; EXCLUDE_MASK) == 0</div></div>
+            <div class="panel" id="m-cell"><h3>3. Cell-day aggregation</h3><p class="small">The unit is one 1° cell-day: <span class="mono">(region, sampling window, date, floor(lat), floor(lon))</span> for one satellite. FRP is summed; pixel count, mean local solar time, mean scan and mean area ratio are retained.</p></div>
+            <div class="panel" id="m-pairing"><h3>4. Satellite observation pairing</h3><p class="small">Aqua and SNPP cell-days are inner-joined on the key. Only cells with detections from both sensors are paired, which biases the sample toward larger fires; the dashboard states this everywhere it matters.</p></div>
+            <div class="panel" id="m-delay"><h3>5. Delay calculation</h3><div class="eq">lst = (UTC hours + longitude / 15) mod 24</div><div class="eq">delay_ref = lst_Aqua − 13.6 h</div><div class="eq">delay_pair = lst_Aqua − lst_SNPP</div><p class="small">Times are zero-padded HHMM before parsing: 118 means 01:18 UTC, not 11:08.</p></div>
+            <div class="panel" id="m-model"><h3>6. Model architecture</h3><p class="small">Seven models are fitted: B0 (no correction), B1 (global scale), B2 (regional scale), P (physics, linear delay / diurnal shape), H (P + ridge-penalised regional offsets), M (gradient boosting) and PR (P + boosted residual). H is served; M and PR stay research-only.</p><div class="eq">g(t) = ln(b + (1 − b) exp(−(t − t₀)² / (2σ²)))</div></div>
+          </div>
+          <div class="stack">
+            <div class="panel" id="m-equation"><h3>7. FRP harmonization equation</h3><div class="eq">y = ln(FRP_Aqua / FRP_SNPP)</div><div class="eq">ŷ = c + g(t_Aqua) − g(13.6) + regional adjustment</div><div class="eq">FRP_harmonized = FRP_Aqua × exp(−ŷ)</div><p class="small">This maps Aqua's cell-day sum to what SNPP would report at 13.6 h, including the sensor-pair scale offset. It is not a pure time shift.</p></div>
+            <div class="panel" id="m-conformal"><h3>8. Conformal uncertainty estimation</h3><p class="small">Split-conformal intervals use the absolute out-of-fold residual. The 80% quantile is computed per pre-registered delay bin; bins with fewer than 40 calibration pairs fall back to the pooled quantile. Honest coverage excludes the evaluated sampling block from calibration.</p><div class="eq">interval = [FRP_h × exp(−q), FRP_h × exp(+q)]</div></div>
+            <div class="panel" id="m-gate"><h3>9. Applicability domain</h3><p class="small">A cell is applicable only when its delay bin has at least 40 calibration pairs and honest coverage of at least 0.70, the delay and scan lie inside the measured 1st–99th percentile domain, and the region is in training. Otherwise the output is null with a reason.</p><div class="btn-row"><span class="badge bad"><span class="sym">✕</span> coverage_below_floor</span><span class="badge bad"><span class="sym">✕</span> insufficient_calibration_pairs</span><span class="badge bad"><span class="sym">✕</span> delay_outside_calibrated_range</span><span class="badge bad"><span class="sym">✕</span> region_not_in_training</span></div></div>
+            <div class="panel" id="m-audit"><h3>10. Audit methodology</h3><p class="small">Folds are whole 5-day sampling windows. Regional transfer is leave-one-region-out. Pairing sensitivity compares cell-day-sum and near-coincident subsets with block-bootstrap intervals. Terra is an out-of-regime test: fit on Aqua, predict Terra. The FRE trend is a naive log-linear fit with a 95% interval and no significance claim when the interval crosses zero.</p></div>
+            <div class="panel" id="m-limits"><h3>11. Known limitations</h3><div id="method-limitations" class="small"></div></div>
+          </div>
+        </div>
+
+        <div class="panel mt">
+          <div class="panel-head"><h2>Architecture</h2><span class="meta">one pure core used by batch, audit and API</span></div>
+          <div class="code-block">FIRMS CSVs → L1 frozen inputs → L2 flags + LST + 1° cell-days → Aqua/SNPP pairs → L5 models B0..PR → conformal + gate → L6 FastAPI → L7 dashboard
+                                                   ↘ L4 audit: grouped CV, regional transfer, pairing, Terra, trend, identifiability</div>
+          <div class="grid three mt">
+            <div class="small"><b>Batch</b><br>scripts/03_run_analysis.py writes hashed results and a model artifact.</div>
+            <div class="small"><b>API</b><br>POST /harmonize calls the same pure core; GET /validity, /version, /health, /audit.</div>
+            <div class="small"><b>Dashboard</b><br>Reads results.json; the harmonization form calls the live API. It never recomputes science.</div>
+          </div>
+        </div>
+
+        <div class="panel mt">
+          <div class="panel-head"><h2>Provenance</h2></div>
+          <div id="method-provenance" class="small"></div>
+          <div class="btn-row mt-sm"><a class="btn secondary small-btn" href="/docs" target="_blank" rel="noopener">OpenAPI docs</a><a class="btn secondary small-btn" href="/version" target="_blank" rel="noopener">/version</a><a class="btn secondary small-btn" href="/validity" target="_blank" rel="noopener">/validity</a></div>
+        </div>
+
+        <div class="limitations" id="method-limitations-foot"></div>
+      </section>
+    </main>
+
+    <footer class="footer">
+      <div><b>Limitations remain visible:</b> four regions · five 5-day windows per year · no saturation/plume/canopy model · no validated correction beyond the calibrated delay domain.</div>
+      <div>results.json <span class="hash" id="foot-hash">—</span> · model <span class="mono" id="foot-model">—</span></div>
+    </footer>
+  </div>
+</div>
+<div class="toast" id="toast"></div>
+<script src="app.js"></script>
+</body>
+</html>

@@ -1,0 +1,36 @@
+{
+  "aggregator_config_hash": "4afd3392e89d812f5478d33da693abae40ad11d5e9b18a82a72a0785fe6d0c6d",
+  "region": [
+    "Southern_Africa"
+  ],
+  "date": [
+    "2021-08-01"
+  ],
+  "latitude": [
+    -12.3
+  ],
+  "longitude": [
+    25.7
+  ],
+  "cell_lat": [
+    -13
+  ],
+  "cell_lon": [
+    25
+  ],
+  "frp_aqua_mw": [
+    180.0
+  ],
+  "detections": [
+    12
+  ],
+  "lst_aqua_h": [
+    14.9
+  ],
+  "scan_aqua": [
+    1.1
+  ],
+  "area_ratio": [
+    1.2
+  ]
+}

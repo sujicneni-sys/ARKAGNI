@@ -1,0 +1,21 @@
+# Python / Virtual Environments
+__pycache__/
+*.py[cod]
+.venv/
+env/
+venv/
+
+# IDE and System Files
+.vscode/
+.idea/
+*.swp
+*.swo
+Thumbs.db
+Desktop.ini
+
+# Large CSVs and Raw Archives (data.db is allowed)
+*.csv
+*.zip
+*.tar
+*.gzdata.db 
+data.db 

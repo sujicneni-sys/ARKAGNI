@@ -1,0 +1,219 @@
+{
+  "comparison": {
+    "column_mismatch_total": 471383,
+    "ids_only_in_csv": 0,
+    "ids_only_in_jsonl": 0,
+    "mismatched_columns": {
+      "frp": {
+        "examples": [
+          {
+            "csv": "1.68",
+            "jsonl": "1.6800000000000002",
+            "row": 166748
+          },
+          {
+            "csv": "1.89",
+            "jsonl": "1.8900000000000001",
+            "row": 166789
+          },
+          {
+            "csv": "1.59",
+            "jsonl": "1.5899999999999999",
+            "row": 166802
+          },
+          {
+            "csv": "0.7",
+            "jsonl": "0.7000000000000001",
+            "row": 166812
+          },
+          {
+            "csv": "0.7",
+            "jsonl": "0.7000000000000001",
+            "row": 166815
+          }
+        ],
+        "mismatches": 48225
+      },
+      "frp_mw": {
+        "examples": [
+          {
+            "csv": "1.68",
+            "jsonl": "1.6800000000000002",
+            "row": 166748
+          },
+          {
+            "csv": "1.89",
+            "jsonl": "1.8900000000000001",
+            "row": 166789
+          },
+          {
+            "csv": "1.59",
+            "jsonl": "1.5899999999999999",
+            "row": 166802
+          },
+          {
+            "csv": "0.7",
+            "jsonl": "0.7000000000000001",
+            "row": 166812
+          },
+          {
+            "csv": "0.7",
+            "jsonl": "0.7000000000000001",
+            "row": 166815
+          }
+        ],
+        "mismatches": 48225
+      },
+      "latitude": {
+        "examples": [
+          {
+            "csv": "-9.9066",
+            "jsonl": "-9.906600000000001",
+            "row": 60
+          },
+          {
+            "csv": "-9.5202",
+            "jsonl": "-9.520199999999999",
+            "row": 72
+          },
+          {
+            "csv": "-8.9554",
+            "jsonl": "-8.955400000000001",
+            "row": 98
+          },
+          {
+            "csv": "-7.5783",
+            "jsonl": "-7.5783000000000005",
+            "row": 139
+          },
+          {
+            "csv": "-7.2338",
+            "jsonl": "-7.2338000000000005",
+            "row": 144
+          }
+        ],
+        "mismatches": 30565
+      },
+      "longitude": {
+        "examples": [
+          {
+            "csv": "-46.6829",
+            "jsonl": "-46.682900000000004",
+            "row": 19
+          },
+          {
+            "csv": "-47.1692",
+            "jsonl": "-47.169200000000004",
+            "row": 187
+          },
+          {
+            "csv": "-64.4634",
+            "jsonl": "-64.46340000000001",
+            "row": 683
+          },
+          {
+            "csv": "-55.6433",
+            "jsonl": "-55.643299999999996",
+            "row": 1308
+          },
+          {
+            "csv": "-52.8704",
+            "jsonl": "-52.870400000000004",
+            "row": 1671
+          }
+        ],
+        "mismatches": 13732
+      },
+      "scan": {
+        "examples": [
+          {
+            "csv": "1.7",
+            "jsonl": "1.7000000000000002",
+            "row": 19
+          },
+          {
+            "csv": "1.7",
+            "jsonl": "1.7000000000000002",
+            "row": 63
+          },
+          {
+            "csv": "1.7",
+            "jsonl": "1.7000000000000002",
+            "row": 64
+          },
+          {
+            "csv": "1.7",
+            "jsonl": "1.7000000000000002",
+            "row": 254
+          },
+          {
+            "csv": "1.7",
+            "jsonl": "1.7000000000000002",
+            "row": 255
+          }
+        ],
+        "mismatches": 180428
+      },
+      "track": {
+        "examples": [
+          {
+            "csv": "1.7",
+            "jsonl": "1.7000000000000002",
+            "row": 17
+          },
+          {
+            "csv": "1.7",
+            "jsonl": "1.7000000000000002",
+            "row": 208
+          },
+          {
+            "csv": "1.7",
+            "jsonl": "1.7000000000000002",
+            "row": 209
+          },
+          {
+            "csv": "1.7",
+            "jsonl": "1.7000000000000002",
+            "row": 218
+          },
+          {
+            "csv": "1.7",
+            "jsonl": "1.7000000000000002",
+            "row": 312
+          }
+        ],
+        "mismatches": 150208
+      }
+    },
+    "row_order_mismatches": 0,
+    "rows_compared": 1382752,
+    "rows_csv": 1382752,
+    "semantically_equivalent": false,
+    "time_normalization": {
+      "csv": {
+        "invalid": 0,
+        "missing": 0,
+        "valid": 1382752,
+        "was_padded": 177449
+      },
+      "jsonl": {
+        "invalid": 0,
+        "missing": 0,
+        "valid": 1382752,
+        "was_padded": 177449
+      }
+    }
+  },
+  "conclusion": "Semantic differences exist; see mismatched_columns.",
+  "csv": {
+    "path": "data/processed/NASA_Fire_Harmonized_Master.csv",
+    "sha256": "baffd3773f413b8f7757717ab824e1270e74cf9b7175c55d28e562483a7db93c"
+  },
+  "generated_at_utc": "2026-11-09T04:12:59.575102+00:00",
+  "jsonl": {
+    "path": "data/processed/NASA_Fire_Harmonized_Master.jsonl",
+    "sha256": "23ea24568425f7ab3d45d9b2dc46d50bd5f526fb28eb3c29098f85fa387227cc"
+  },
+  "note": "Master acquisition_time_utc equals master acq_time for every row; the master lost the cleaned file's four-digit normalization. Both encodings normalize to the same HHMM value, so this is a storage defect, not a semantic difference. The canonical L1 dataset uses the cleaned acquisition_time_utc, which is fully four-digit.",
+  "schema_version": "l1.csv_jsonl_equivalence.v1"
+}

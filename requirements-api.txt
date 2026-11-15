@@ -1,0 +1,13 @@
+# Runtime dependencies for the L6 FastAPI service.
+# Pinned to the versions recorded in pyproject.toml / uv.lock.
+fastapi==0.162.2
+uvicorn[standard]==0.54.0
+numpy==2.5.4
+pandas==3.1.1
+pyarrow==26.0.1
+pydantic==2.14.3
+PyYAML==6.0.2
+python-dateutil==4.0.0
+scikit-learn==1.9.1
+scipy==1.18.1
+tzdata==2026.6

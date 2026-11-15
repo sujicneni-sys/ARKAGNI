@@ -1,0 +1,51 @@
+# Arkagni global configuration.
+#
+# The `science` block is canonical. It is serialised with sorted keys and
+# SHA-256 hashed into every output. Changing any value here changes
+# aggregator_config_hash, and the L6 service will refuse requests built with a
+# different hash. Prose keys outside this block are operational metadata and do
+# not enter the scientific hash.
+schema_version: pyroharmonize.config.v1
+project_name: Arkagni
+reference_lst_h: 13.6
+delay_bins:
+  - "(-3, 0]"
+  - "(0, 0.5]"
+  - "(0.5, 1]"
+  - "(1, 1.5]"
+  - "(1.5, 2]"
+  - "(2, 3.5]"
+alpha: 0.2
+coverage_floor: 0.7
+min_calibration_pairs: 40
+ridge_lambda: 100.0
+cell_definition: "floor(latitude) x floor(longitude), 1 degree"
+validation_rule: "type == 0 AND frp > 0 AND daynight == D"
+
+serving:
+  model: H
+  max_cells: 100000
+  max_batch_bytes: 8388608
+  allowed_origins:
+    - "http://localhost:8000"
+    - "http://127.0.0.1:8000"
+
+grid:
+  cell_size_degrees: 1
+  snap_rule: floor
+  latitude_range: [-90, 90]
+  longitude_range: [-180, 180]
+
+uncertainty:
+  nominal_coverage: 0.8
+  method: split_conformal_by_delay_bin
+  finite_sample_correction: true
+
+frontend:
+  title: Arkagni
+  subtitle: Cross-Sensor Fire Harmonization
+  api_base: ""
+
+provenance:
+  data_hash_expected_prefix: "37423f49d223"
+  registry: backend/artifacts/registry.json

@@ -1,0 +1,1002 @@
+{
+  "actual_examples": [
+    {
+      "cell": "N40W124",
+      "date": "2021-09-05",
+      "delay_h": -1.101672,
+      "detections": 15,
+      "frp_aqua_mw": 1561.2,
+      "lst_aqua_h": 12.498328,
+      "observed_frp_snpp_mw": 1123.29,
+      "region": "California",
+      "scan_aqua": 2.466667
+    },
+    {
+      "cell": "S11W062",
+      "date": "2021-08-01",
+      "delay_h": 0.613127,
+      "detections": 1,
+      "frp_aqua_mw": 45.7,
+      "lst_aqua_h": 14.213127,
+      "observed_frp_snpp_mw": 41.72,
+      "region": "Amazon",
+      "scan_aqua": 2.8
+    },
+    {
+      "cell": "S27E032",
+      "date": "2025-08-03",
+      "delay_h": 2.25084,
+      "detections": 1,
+      "frp_aqua_mw": 58.5,
+      "lst_aqua_h": 15.85084,
+      "observed_frp_snpp_mw": 175.5,
+      "region": "Southern_Africa",
+      "scan_aqua": 4.7
+    }
+  ],
+  "audit": {
+    "bias_by_bin": {
+      "(-3, 0]": {
+        "corrected_bias": 0.020651,
+        "corrected_rmse": 0.99406,
+        "n": 1002,
+        "raw_bias": -0.1892,
+        "raw_rmse": 1.028895
+      },
+      "(0, 0.5]": {
+        "corrected_bias": 0.03113,
+        "corrected_rmse": 0.929529,
+        "n": 1728,
+        "raw_bias": -0.038499,
+        "raw_rmse": 0.945794
+      },
+      "(0.5, 1]": {
+        "corrected_bias": -0.010586,
+        "corrected_rmse": 0.989731,
+        "n": 1879,
+        "raw_bias": -0.110079,
+        "raw_rmse": 0.999129
+      },
+      "(1, 1.5]": {
+        "corrected_bias": 0.017384,
+        "corrected_rmse": 1.039249,
+        "n": 1223,
+        "raw_bias": -0.240231,
+        "raw_rmse": 1.052299
+      },
+      "(1.5, 2]": {
+        "corrected_bias": 0.132131,
+        "corrected_rmse": 1.050682,
+        "n": 428,
+        "raw_bias": -0.416816,
+        "raw_rmse": 1.135785
+      },
+      "(2, 3.5]": {
+        "corrected_bias": -0.055731,
+        "corrected_rmse": 1.305346,
+        "n": 53,
+        "raw_bias": -0.763565,
+        "raw_rmse": 1.510804
+      }
+    },
+    "fre_trend": {
+      "available": true,
+      "ci_high_percent": 18.83022,
+      "ci_low_percent": -13.694005,
+      "naive_slope_percent_per_year": 1.270728,
+      "significant": false,
+      "unit": "annual validated FRP total, all sensors",
+      "yearly_frp": {
+        "2021": 4545317.68,
+        "2022": 2922891.4,
+        "2023": 3620289.64,
+        "2024": 5209552.93,
+        "2025": 3626519.49
+      }
+    },
+    "identifiability": {
+      "available": true,
+      "block_level_se": null,
+      "cell_level_se": 0.180783,
+      "independent_unit": "date-region sampling window block",
+      "mean_bias": -0.763565,
+      "n_blocks": 1,
+      "n_cells": 53
+    },
+    "not_evaluated": [
+      "saturation",
+      "plume_scattering",
+      "canopy_occlusion"
+    ],
+    "pairing_sensitivity": {
+      "cell_day_sum": {
+        "ci_high": 0.0827550819227614,
+        "ci_low": -0.29503770124431833,
+        "iterations": 500,
+        "n": 6313,
+        "n_blocks": 18,
+        "slope_per_hour": -0.11897361678831425
+      },
+      "near_coincident": {
+        "ci_high": 0.5135943207424452,
+        "ci_low": 0.10312609987966756,
+        "iterations": 500,
+        "n": 2578,
+        "n_blocks": 18,
+        "slope_per_hour": 0.3077367383489646
+      },
+      "near_coincident_n": 2578
+    },
+    "pending": [
+      "independent geostationary reference data",
+      "pairing-confound test with scan control",
+      "bin-level bootstrap bias intervals"
+    ],
+    "terra_extrapolation": {
+      "available": true,
+      "delay_mean_h": -3.711143,
+      "h_rmse": 2.987132,
+      "n": 3847,
+      "physics_rmse": 3.223294,
+      "raw_bias": -1.616997,
+      "raw_rmse": 2.280376
+    }
+  },
+  "dataset": {
+    "date_max": "2025-09-05",
+    "date_min": "2021-01-10",
+    "flags": {
+      "frp_not_above_zero": 267,
+      "night": 227329,
+      "type_not_0": 9084
+    },
+    "region_bounds": {
+      "Amazon": {
+        "lat_max": 4.9988,
+        "lat_min": -14.9999,
+        "lon_max": -45.0001,
+        "lon_min": -74.9999,
+        "rows": 234554
+      },
+      "Australia": {
+        "lat_max": -10.0049,
+        "lat_min": -43.4127,
+        "lon_max": 153.5262,
+        "lon_min": 114.0847,
+        "rows": 70137
+      },
+      "California": {
+        "lat_max": 41.9863,
+        "lat_min": 32.0195,
+        "lon_max": -114.0387,
+        "lon_min": -123.9605,
+        "rows": 46622
+      },
+      "Southern_Africa": {
+        "lat_max": -10.0,
+        "lat_min": -34.9715,
+        "lon_max": 40.0,
+        "lon_min": 11.918,
+        "rows": 1031439
+      }
+    },
+    "regions": 4,
+    "rows": 1382752,
+    "rows_by_region": {
+      "Amazon": 234554,
+      "Australia": 70137,
+      "California": 46622,
+      "Southern_Africa": 1031439
+    },
+    "rows_by_satellite": {
+      "Aqua": 127704,
+      "N": 545196,
+      "N20": 670823,
+      "Terra": 39029
+    },
+    "rows_by_year": {
+      "2021": 287297,
+      "2022": 160819,
+      "2023": 274179,
+      "2024": 372492,
+      "2025": 287965
+    },
+    "validated_by_satellite": {
+      "Aqua": 122911,
+      "N": 447608,
+      "N20": 555593,
+      "Terra": 27419
+    },
+    "validated_rows": 1153531,
+    "window_days": 5,
+    "window_starts": [
+      "2021-01-10",
+      "2021-08-01",
+      "2021-09-01",
+      "2022-01-10",
+      "2022-08-01",
+      "2022-09-01",
+      "2023-01-10",
+      "2023-08-01",
+      "2023-09-01",
+      "2024-01-10",
+      "2024-08-01",
+      "2024-09-01",
+      "2025-01-10",
+      "2025-08-01",
+      "2025-09-01"
+    ],
+    "windows": 15
+  },
+  "gate": {
+    "alpha": 0.2,
+    "bins": {
+      "(-3, 0]": {
+        "applicable": true,
+        "bin": "(-3, 0]",
+        "calibration_n": 1002,
+        "coverage": 0.8043912175648703,
+        "fallback_pooled": false,
+        "quantile": 1.1531016138560188,
+        "reason": null
+      },
+      "(0, 0.5]": {
+        "applicable": true,
+        "bin": "(0, 0.5]",
+        "calibration_n": 1728,
+        "coverage": 0.8003472222222222,
+        "fallback_pooled": false,
+        "quantile": 1.0743899263767545,
+        "reason": null
+      },
+      "(0.5, 1]": {
+        "applicable": true,
+        "bin": "(0.5, 1]",
+        "calibration_n": 1879,
+        "coverage": 0.8068121341138904,
+        "fallback_pooled": false,
+        "quantile": 1.173459987433303,
+        "reason": null
+      },
+      "(1, 1.5]": {
+        "applicable": true,
+        "bin": "(1, 1.5]",
+        "calibration_n": 1223,
+        "coverage": 0.812755519215045,
+        "fallback_pooled": false,
+        "quantile": 1.2348936089693126,
+        "reason": null
+      },
+      "(1.5, 2]": {
+        "applicable": true,
+        "bin": "(1.5, 2]",
+        "calibration_n": 428,
+        "coverage": 0.8808411214953271,
+        "fallback_pooled": false,
+        "quantile": 1.2055527007635387,
+        "reason": null
+      },
+      "(2, 3.5]": {
+        "applicable": false,
+        "bin": "(2, 3.5]",
+        "calibration_n": 53,
+        "coverage": 0.660377358490566,
+        "fallback_pooled": false,
+        "quantile": 1.8327660049751278,
+        "reason": "coverage_below_floor"
+      }
+    },
+    "coverage_floor": 0.7,
+    "domain": {
+      "delay_high": 1.9795518256410283,
+      "delay_low": -0.5727705696969694,
+      "regions": [
+        "Amazon",
+        "Australia",
+        "California",
+        "Southern_Africa"
+      ],
+      "scan_high": 4.687285714285714,
+      "scan_low": 1.0
+    },
+    "min_calibration_pairs": 40,
+    "nominal_coverage": 0.8
+  },
+  "generated_at_utc": "2026-11-09T04:32:20.255412+00:00",
+  "limitations": [
+    "Four study regions only; this is not a global archive.",
+    "Five 5-day sampling windows per year from 2021 to 2025.",
+    "Saturation, plume scattering and canopy occlusion are not modelled; they are reported as not evaluated.",
+    "Corrections above 2 h of delay are refused because calibration support is thin.",
+    "Pairing only detections biases the sample toward larger fires.",
+    "Conformal intervals describe cell-day noise, not individual-pixel accuracy.",
+    "Improved agreement between sensors is not proof of improved accuracy without independent reference data."
+  ],
+  "models": {
+    "available": [
+      "B0",
+      "B1",
+      "B2",
+      "P",
+      "H",
+      "M",
+      "PR"
+    ],
+    "grouped_cv": {
+      "B0": {
+        "bias": -0.15454,
+        "mae": 0.749259,
+        "n": 6313.0,
+        "rmse": 1.01545
+      },
+      "B1": {
+        "bias": -0.060886,
+        "mae": 0.738467,
+        "n": 6313.0,
+        "rmse": 1.008166
+      },
+      "B2": {
+        "bias": -0.001045,
+        "mae": 0.72644,
+        "n": 6313.0,
+        "rmse": 0.993157
+      },
+      "H": {
+        "bias": 0.020506,
+        "mae": 0.724579,
+        "n": 6313.0,
+        "rmse": 0.991605
+      },
+      "M": {
+        "bias": -0.000446,
+        "mae": 0.684522,
+        "n": 6313.0,
+        "rmse": 0.938354
+      },
+      "P": {
+        "bias": 0.013545,
+        "mae": 0.731787,
+        "n": 6313.0,
+        "rmse": 1.002762
+      },
+      "PR": {
+        "bias": 0.008307,
+        "mae": 0.680393,
+        "n": 6313.0,
+        "rmse": 0.934555
+      }
+    },
+    "loyo": {
+      "Amazon": {
+        "B0": {
+          "bias": 0.083796,
+          "mae": 0.855986,
+          "n": 1798.0,
+          "rmse": 1.158667
+        },
+        "H": {
+          "bias": 0.239868,
+          "mae": 0.872885,
+          "n": 1798.0,
+          "rmse": 1.18122
+        },
+        "P": {
+          "bias": 0.312296,
+          "mae": 0.886637,
+          "n": 1798.0,
+          "rmse": 1.197328
+        },
+        "n": 1798
+      },
+      "Australia": {
+        "B0": {
+          "bias": -0.081618,
+          "mae": 0.843427,
+          "n": 427.0,
+          "rmse": 1.103268
+        },
+        "H": {
+          "bias": 0.029638,
+          "mae": 0.841716,
+          "n": 427.0,
+          "rmse": 1.107317
+        },
+        "P": {
+          "bias": 0.080023,
+          "mae": 0.843004,
+          "n": 427.0,
+          "rmse": 1.11097
+        },
+        "n": 427
+      },
+      "California": {
+        "B0": {
+          "bias": -0.2121,
+          "mae": 0.667565,
+          "n": 117.0,
+          "rmse": 0.900418
+        },
+        "H": {
+          "bias": 0.001255,
+          "mae": 0.637402,
+          "n": 117.0,
+          "rmse": 0.867841
+        },
+        "P": {
+          "bias": 0.039222,
+          "mae": 0.638433,
+          "n": 117.0,
+          "rmse": 0.870043
+        },
+        "n": 117
+      },
+      "Southern_Africa": {
+        "B0": {
+          "bias": -0.2686,
+          "mae": 0.693215,
+          "n": 3971.0,
+          "rmse": 0.936292
+        },
+        "H": {
+          "bias": -0.1573,
+          "mae": 0.669225,
+          "n": 3971.0,
+          "rmse": 0.911725
+        },
+        "P": {
+          "bias": -0.22882,
+          "mae": 0.685386,
+          "n": 3971.0,
+          "rmse": 0.926954
+        },
+        "n": 3971
+      }
+    },
+    "params": {
+      "H": {
+        "b": 0.0001,
+        "c": -0.107645,
+        "offsets": {
+          "Amazon": 0.150637,
+          "Australia": 8e-05,
+          "California": -0.004924,
+          "Southern_Africa": -0.126612
+        },
+        "sigma": 1.495652,
+        "t0": 14.109903
+      },
+      "P": {
+        "b": 0.0001,
+        "c": -0.130915,
+        "sigma": 1.426995,
+        "t0": 14.044939
+      }
+    },
+    "selection": {
+      "folds": {
+        "2021": {
+          "B0": {
+            "bias": -0.117436,
+            "mae": 0.785401,
+            "n": 1454.0,
+            "rmse": 1.065957
+          },
+          "B1": {
+            "bias": -0.041178,
+            "mae": 0.775225,
+            "n": 1454.0,
+            "rmse": 1.060268
+          },
+          "B2": {
+            "bias": 0.040419,
+            "mae": 0.752644,
+            "n": 1454.0,
+            "rmse": 1.037312
+          },
+          "H": {
+            "bias": 0.059408,
+            "mae": 0.753404,
+            "n": 1454.0,
+            "rmse": 1.041154
+          },
+          "M": {
+            "bias": 0.071582,
+            "mae": 0.692258,
+            "n": 1454.0,
+            "rmse": 0.969108
+          },
+          "P": {
+            "bias": 0.062442,
+            "mae": 0.765453,
+            "n": 1454.0,
+            "rmse": 1.055434
+          },
+          "PR": {
+            "bias": 0.078592,
+            "mae": 0.693776,
+            "n": 1454.0,
+            "rmse": 0.97178
+          },
+          "n_test": 1454,
+          "n_train": 1680
+        },
+        "2023": {
+          "B0": {
+            "bias": -0.158597,
+            "mae": 0.728459,
+            "n": 1556.0,
+            "rmse": 0.981398
+          },
+          "B1": {
+            "bias": -0.118897,
+            "mae": 0.721891,
+            "n": 1556.0,
+            "rmse": 0.975769
+          },
+          "B2": {
+            "bias": -0.047261,
+            "mae": 0.726949,
+            "n": 1556.0,
+            "rmse": 0.969408
+          },
+          "H": {
+            "bias": -0.023574,
+            "mae": 0.71586,
+            "n": 1556.0,
+            "rmse": 0.961033
+          },
+          "M": {
+            "bias": -0.068627,
+            "mae": 0.717563,
+            "n": 1556.0,
+            "rmse": 0.959827
+          },
+          "P": {
+            "bias": -0.018611,
+            "mae": 0.707599,
+            "n": 1556.0,
+            "rmse": 0.961566
+          },
+          "PR": {
+            "bias": -0.075414,
+            "mae": 0.721732,
+            "n": 1556.0,
+            "rmse": 0.965588
+          },
+          "n_test": 1556,
+          "n_train": 1578
+        }
+      },
+      "mean_rmse": {
+        "B0": 1.0236775227101638,
+        "B1": 1.018018675033507,
+        "B2": 1.003360213912787,
+        "H": 1.0010936629579288,
+        "M": 0.9644675167509034,
+        "P": 1.0085001221380683,
+        "PR": 0.968683918535435
+      },
+      "winner": "M",
+      "years": [
+        2021,
+        2023
+      ]
+    },
+    "served": "H",
+    "served_note": "H is a physics-structured correction with regional offsets. The ML models are research comparisons and cannot be selected in the operational path until owner sign-off."
+  },
+  "pairs": {
+    "aqua_cell_days": 8459,
+    "by_region": {
+      "Amazon": 1798,
+      "Australia": 427,
+      "California": 117,
+      "Southern_Africa": 3971
+    },
+    "count": 6313,
+    "delay_ref_max_h": 2.25084,
+    "delay_ref_mean_h": 0.621266,
+    "delay_ref_median_h": 0.613127,
+    "delay_ref_min_h": -1.101672,
+    "noaa20_snpp_pairs": 9822,
+    "region_summary": {
+      "Amazon": {
+        "delay_mean_h": 0.473158,
+        "delay_median_h": 0.45206,
+        "n": 1798,
+        "raw_bias": 0.083796,
+        "raw_rmse": 1.158667,
+        "share": 0.284809
+      },
+      "Australia": {
+        "delay_mean_h": 0.634752,
+        "delay_median_h": 0.645563,
+        "n": 427,
+        "raw_bias": -0.081618,
+        "raw_rmse": 1.103268,
+        "share": 0.067638
+      },
+      "California": {
+        "delay_mean_h": -0.070616,
+        "delay_median_h": -0.093747,
+        "n": 117,
+        "raw_bias": -0.2121,
+        "raw_rmse": 0.900418,
+        "share": 0.018533
+      },
+      "Southern_Africa": {
+        "delay_mean_h": 0.707262,
+        "delay_median_h": 0.708316,
+        "n": 3971,
+        "raw_bias": -0.2686,
+        "raw_rmse": 0.936292,
+        "share": 0.629019
+      }
+    },
+    "share_by_region": {
+      "Amazon": 0.284809,
+      "Australia": 0.067638,
+      "California": 0.018533,
+      "Southern_Africa": 0.629019
+    },
+    "snpp_cell_days": 11217,
+    "terra_pairs": 3847,
+    "y_mean": -0.15454,
+    "y_std": 1.003701
+  },
+  "provenance": {
+    "cell_days_sha256": "10683a1a53ee55bbf2a74b10f9b44a11470800b8c933f95e6cbda2328f4fd62d",
+    "config_hash": "4afd3392e89d812f5478d33da693abae40ad11d5e9b18a82a72a0785fe6d0c6d",
+    "data_hash": "37423f49d2235a911caaebbdc660388ed7e775333ae7f224672342720adf8290",
+    "data_hash_begins": "37423f49d223",
+    "generated_at_utc": "2026-11-09T04:32:20.255412+00:00",
+    "git_commit": "unknown",
+    "l1_canonical_sha256": "49d0f3178c1ad75cc261ed880b4844e0abe32080a90e984159995b278e345a0f",
+    "library_versions": {
+      "numpy": "2.5.4",
+      "pandas": "3.1.1",
+      "python": "3.12.16",
+      "scikit_learn": "1.9.1",
+      "scipy": "1.18.1"
+    },
+    "model_artifact": "C:/Users/cneni/OneDrive/Desktop/DMS/NASA_APPS/newwww/artifacts/models/model_H.pkl",
+    "model_artifact_sha256": "d3e7645ff52350a519db6372a10330563921d0b585bacd01cbc2a7c579672715",
+    "pairs_sha256": "49330248d95ad5c8eccc63c277af8f130cf7e2f5bd7b584420933bad5f3d2e5d",
+    "pipeline_version": "l2-l5-v1",
+    "runtime_s": 199.55,
+    "source_archive_sha256": "09aa2c1da7fbb8d030df5dc6faa0b95ba879a1fffd44374d7fd95aa77d2db0b8"
+  },
+  "schema_version": "pyroharmonize.results.v1",
+  "uncertainty": {
+    "alpha": 0.2,
+    "bin_order": [
+      "(-3, 0]",
+      "(0, 0.5]",
+      "(0.5, 1]",
+      "(1, 1.5]",
+      "(1.5, 2]",
+      "(2, 3.5]"
+    ],
+    "calibration": {
+      "(-3, 0]": {
+        "bin": "(-3, 0]",
+        "fallback_pooled": false,
+        "median_width_factor": 1.7146222876194555,
+        "n": 1002,
+        "quantile": 1.1531016138560188,
+        "width_factor": 3.1680036112174217
+      },
+      "(0, 0.5]": {
+        "bin": "(0, 0.5]",
+        "fallback_pooled": false,
+        "median_width_factor": 1.6310604714518364,
+        "n": 1728,
+        "quantile": 1.0743899263767545,
+        "width_factor": 2.9282059342946973
+      },
+      "(0.5, 1]": {
+        "bin": "(0.5, 1]",
+        "fallback_pooled": false,
+        "median_width_factor": 1.6330818227433659,
+        "n": 1879,
+        "quantile": 1.173459987433303,
+        "width_factor": 3.233160000893877
+      },
+      "(1, 1.5]": {
+        "bin": "(1, 1.5]",
+        "fallback_pooled": false,
+        "median_width_factor": 1.7832037480151526,
+        "n": 1223,
+        "quantile": 1.2348936089693126,
+        "width_factor": 3.4380127275293146
+      },
+      "(1.5, 2]": {
+        "bin": "(1.5, 2]",
+        "fallback_pooled": false,
+        "median_width_factor": 1.7366678270905265,
+        "n": 428,
+        "quantile": 1.2055527007635387,
+        "width_factor": 3.338603817104984
+      },
+      "(2, 3.5]": {
+        "bin": "(2, 3.5]",
+        "fallback_pooled": false,
+        "median_width_factor": 2.4198246911703207,
+        "n": 53,
+        "quantile": 1.8327660049751278,
+        "width_factor": 6.251153489097483
+      }
+    },
+    "in_sample": {
+      "(-3, 0]": {
+        "bin": "(-3, 0]",
+        "coverage": 0.8013972055888223,
+        "covered": 803,
+        "n": 1002,
+        "quantile": 1.1531016138560188
+      },
+      "(0, 0.5]": {
+        "bin": "(0, 0.5]",
+        "coverage": 0.8009259259259259,
+        "covered": 1384,
+        "n": 1728,
+        "quantile": 1.0743899263767545
+      },
+      "(0.5, 1]": {
+        "bin": "(0.5, 1]",
+        "coverage": 0.8004257583821182,
+        "covered": 1504,
+        "n": 1879,
+        "quantile": 1.173459987433303
+      },
+      "(1, 1.5]": {
+        "bin": "(1, 1.5]",
+        "coverage": 0.8013082583810303,
+        "covered": 980,
+        "n": 1223,
+        "quantile": 1.2348936089693126
+      },
+      "(1.5, 2]": {
+        "bin": "(1.5, 2]",
+        "coverage": 0.8037383177570093,
+        "covered": 344,
+        "n": 428,
+        "quantile": 1.2055527007635387
+      },
+      "(2, 3.5]": {
+        "bin": "(2, 3.5]",
+        "coverage": 0.8301886792452831,
+        "covered": 44,
+        "n": 53,
+        "quantile": 1.8327660049751278
+      }
+    },
+    "in_sample_coverage": 0.8013622683351814,
+    "nested": {
+      "(-3, 0]": {
+        "bin": "(-3, 0]",
+        "coverage": 0.8043912175648703,
+        "covered": 806,
+        "n": 1002
+      },
+      "(0, 0.5]": {
+        "bin": "(0, 0.5]",
+        "coverage": 0.8003472222222222,
+        "covered": 1383,
+        "n": 1728
+      },
+      "(0.5, 1]": {
+        "bin": "(0.5, 1]",
+        "coverage": 0.8068121341138904,
+        "covered": 1516,
+        "n": 1879
+      },
+      "(1, 1.5]": {
+        "bin": "(1, 1.5]",
+        "coverage": 0.812755519215045,
+        "covered": 994,
+        "n": 1223
+      },
+      "(1.5, 2]": {
+        "bin": "(1.5, 2]",
+        "coverage": 0.8808411214953271,
+        "covered": 377,
+        "n": 428
+      },
+      "(2, 3.5]": {
+        "bin": "(2, 3.5]",
+        "coverage": 0.660377358490566,
+        "covered": 35,
+        "n": 53
+      }
+    },
+    "nominal_coverage": 0.8,
+    "overall_coverage": 0.809599239664185
+  },
+  "validity_map": {
+    "Amazon": {
+      "bins": {
+        "(-3, 0]": {
+          "applicable": 309,
+          "coverage": 0.8043912175648703,
+          "gate_reason": null,
+          "n": 309,
+          "raw_bias": 0.170348
+        },
+        "(0, 0.5]": {
+          "applicable": 663,
+          "coverage": 0.8003472222222222,
+          "gate_reason": null,
+          "n": 663,
+          "raw_bias": 0.192077
+        },
+        "(0.5, 1]": {
+          "applicable": 537,
+          "coverage": 0.8068121341138904,
+          "gate_reason": null,
+          "n": 537,
+          "raw_bias": 0.067982
+        },
+        "(1, 1.5]": {
+          "applicable": 248,
+          "coverage": 0.812755519215045,
+          "gate_reason": null,
+          "n": 248,
+          "raw_bias": -0.219141
+        },
+        "(1.5, 2]": {
+          "applicable": 41,
+          "coverage": 0.8808411214953271,
+          "gate_reason": null,
+          "n": 41,
+          "raw_bias": -0.279971
+        },
+        "(2, 3.5]": {
+          "applicable": 0,
+          "coverage": null,
+          "n": 0
+        }
+      },
+      "n_pairs": 1798,
+      "share": 0.284809
+    },
+    "Australia": {
+      "bins": {
+        "(-3, 0]": {
+          "applicable": 56,
+          "coverage": 0.8043912175648703,
+          "gate_reason": null,
+          "n": 56,
+          "raw_bias": -0.080026
+        },
+        "(0, 0.5]": {
+          "applicable": 109,
+          "coverage": 0.8003472222222222,
+          "gate_reason": null,
+          "n": 109,
+          "raw_bias": 0.076476
+        },
+        "(0.5, 1]": {
+          "applicable": 153,
+          "coverage": 0.8068121341138904,
+          "gate_reason": null,
+          "n": 153,
+          "raw_bias": -0.152996
+        },
+        "(1, 1.5]": {
+          "applicable": 88,
+          "coverage": 0.812755519215045,
+          "gate_reason": null,
+          "n": 88,
+          "raw_bias": -0.245888
+        },
+        "(1.5, 2]": {
+          "applicable": 21,
+          "coverage": 0.8808411214953271,
+          "gate_reason": null,
+          "n": 21,
+          "raw_bias": 0.301974
+        },
+        "(2, 3.5]": {
+          "applicable": 0,
+          "coverage": null,
+          "n": 0
+        }
+      },
+      "n_pairs": 427,
+      "share": 0.067638
+    },
+    "California": {
+      "bins": {
+        "(-3, 0]": {
+          "applicable": 66,
+          "coverage": 0.8043912175648703,
+          "gate_reason": null,
+          "n": 66,
+          "raw_bias": -0.319659
+        },
+        "(0, 0.5]": {
+          "applicable": 28,
+          "coverage": 0.8003472222222222,
+          "gate_reason": null,
+          "n": 28,
+          "raw_bias": -0.193837
+        },
+        "(0.5, 1]": {
+          "applicable": 16,
+          "coverage": 0.8068121341138904,
+          "gate_reason": null,
+          "n": 16,
+          "raw_bias": 0.056765
+        },
+        "(1, 1.5]": {
+          "applicable": 7,
+          "coverage": 0.812755519215045,
+          "gate_reason": null,
+          "n": 7,
+          "raw_bias": 0.114422
+        },
+        "(1.5, 2]": {
+          "applicable": 0,
+          "coverage": null,
+          "n": 0
+        },
+        "(2, 3.5]": {
+          "applicable": 0,
+          "coverage": null,
+          "n": 0
+        }
+      },
+      "n_pairs": 117,
+      "share": 0.018533
+    },
+    "Southern_Africa": {
+      "bins": {
+        "(-3, 0]": {
+          "applicable": 571,
+          "coverage": 0.8043912175648703,
+          "gate_reason": null,
+          "n": 571,
+          "raw_bias": -0.3794
+        },
+        "(0, 0.5]": {
+          "applicable": 928,
+          "coverage": 0.8003472222222222,
+          "gate_reason": null,
+          "n": 928,
+          "raw_bias": -0.212049
+        },
+        "(0.5, 1]": {
+          "applicable": 1173,
+          "coverage": 0.8068121341138904,
+          "gate_reason": null,
+          "n": 1173,
+          "raw_bias": -0.188273
+        },
+        "(1, 1.5]": {
+          "applicable": 880,
+          "coverage": 0.812755519215045,
+          "gate_reason": null,
+          "n": 880,
+          "raw_bias": -0.24843
+        },
+        "(1.5, 2]": {
+          "applicable": 366,
+          "coverage": 0.8808411214953271,
+          "gate_reason": null,
+          "n": 366,
+          "raw_bias": -0.473388
+        },
+        "(2, 3.5]": {
+          "applicable": 0,
+          "coverage": 0.660377358490566,
+          "gate_reason": "coverage_below_floor",
+          "n": 53,
+          "raw_bias": -0.763565
+        }
+      },
+      "n_pairs": 3971,
+      "share": 0.629019
+    }
+  }
+}

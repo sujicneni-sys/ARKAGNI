@@ -1,0 +1,4 @@
+# Local development and test dependencies.
+-r requirements-api.txt
+pytest==9.2.0
+httpx2>=2.16.0

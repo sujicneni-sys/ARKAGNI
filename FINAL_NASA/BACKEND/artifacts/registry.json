@@ -1,0 +1,33 @@
+{
+  "schema_version": "pyroharmonize.registry.v1",
+  "active_model": "H",
+  "pipeline_version": "l2-l5-v1",
+  "model": {
+    "path": "backend/artifacts/model_H.pkl",
+    "sha256": "d3e7645ff52350a519db6372a10330563921d0b585bacd01cbc2a7c579672715",
+    "format": "pickle",
+    "note": "Hash-verified before load. Never load an unverified pickle."
+  },
+  "results": {
+    "path": "backend/artifacts/results.json",
+    "sha256": "6f6d09df374fa85f43206dc66d54ea994057e8d526d884491d2aab552325fb0c",
+    "schema_version": "pyroharmonize.results.v1"
+  },
+  "conformal": {
+    "path": "backend/artifacts/conformal.json",
+    "sha256": "be22316a11388f7e8ff24091c9c93d7f0166c067bf12346b2718b24394376b75",
+    "schema_version": "pyroharmonize.conformal.v1",
+    "nominal_coverage": 0.8,
+    "method": "split_conformal_by_delay_bin"
+  },
+  "data": {
+    "data_hash": "37423f49d2235a911caaebbdc660388ed7e775333ae7f224672342720adf8290",
+    "data_hash_begins": "37423f49d223",
+    "l1_canonical": "data/processed/l1_canonical.parquet",
+    "pairs": "data/processed/pairs_aqua_snpp.parquet"
+  },
+  "rollback": {
+    "rule": "Change active_model and the model/results pointers atomically, then restart workers.",
+    "previous_model": null
+  }
+}

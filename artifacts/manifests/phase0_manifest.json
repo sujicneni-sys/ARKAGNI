@@ -1,0 +1,772 @@
+{
+  "data_hash": {
+    "candidates": {
+      "cleaned_csv_in_sensor_order": "37423f49d2235a911caaebbdc660388ed7e775333ae7f224672342720adf8290",
+      "raw_csv_in_sensor_order": "cf50b9f3384cd2d4e6ab1f6ae1d1e89b1c83d8a01f75025911c8bb1b8c1db17e"
+    },
+    "canonical_source": "cleaned_csv_in_sensor_order",
+    "definition": "sha256(concat(per-file sha256 hex in order MODIS, VIIRS_SNPP, VIIRS_NOAA20))",
+    "expected_documented": "37423f49d2235a911caaebbdc660388ed7e775333ae7f224672342720adf8290",
+    "matched_candidates": [
+      "cleaned_csv_in_sensor_order"
+    ],
+    "verified": true
+  },
+  "environment": {
+    "platform": "Windows-11-10.0.26200-SP0",
+    "python": "3.12.16"
+  },
+  "extraction_ran": false,
+  "files": [
+    {
+      "bytes": 2372,
+      "compressed_bytes": 1181,
+      "crc32": "65224a7e",
+      "kind": "other",
+      "path": "README.md",
+      "read_only": true,
+      "sha256": "0d6594d692d0e43cfddd911c68ee6a06e8480e9f2f6823433f1e927d2524f023"
+    },
+    {
+      "bytes": 218,
+      "column_count": 2,
+      "compressed_bytes": 135,
+      "crc32": "4ed9d928",
+      "kind": "csv",
+      "path": "reports/master_validation_report.csv",
+      "read_only": true,
+      "rows": 9,
+      "sha256": "2fe2f1b0665c0149e13473ab3159e9df22d5145e62797bde2f90618176658c9c"
+    },
+    {
+      "bytes": 466,
+      "compressed_bytes": 250,
+      "crc32": "7d445ed9",
+      "kind": "other",
+      "path": "reports/dataset_summary.json",
+      "read_only": true,
+      "sha256": "ee083a674e53a7ade96abf2f1eee89f6cb2416a1e20e137a38c962d8bd066007"
+    },
+    {
+      "bytes": 721,
+      "column_count": 2,
+      "compressed_bytes": 305,
+      "crc32": "07f993bc",
+      "kind": "csv",
+      "path": "reports/repository_inventory.csv",
+      "read_only": true,
+      "rows": 19,
+      "sha256": "b9183d07684c1106bb0f14266ceade9723afa5d1c924e31b4be64f5379ca049b"
+    },
+    {
+      "bytes": 581,
+      "column_count": 2,
+      "compressed_bytes": 266,
+      "crc32": "fe714875",
+      "kind": "csv",
+      "path": "reports/missing_values_report.csv",
+      "read_only": true,
+      "rows": 33,
+      "sha256": "366a80f2a655c55f1b81fc3b038ff6e3a47059b51b5846dcf364796161fd312f"
+    },
+    {
+      "bytes": 227,
+      "column_count": 6,
+      "compressed_bytes": 146,
+      "crc32": "9bb7852a",
+      "kind": "csv",
+      "path": "reports/cleaning_audit.csv",
+      "read_only": true,
+      "rows": 3,
+      "sha256": "bfb9906c99fd6d747270c607c7a440643a0ab9c4ace550cadc47dfc2abf13ddc"
+    },
+    {
+      "bytes": 413,
+      "column_count": 10,
+      "compressed_bytes": 204,
+      "crc32": "4916f831",
+      "kind": "csv",
+      "path": "reports/cleaning_quality_report.csv",
+      "read_only": true,
+      "rows": 3,
+      "sha256": "33be1081a11e78fbb2cfb598c0eb39b0a8c5911af6696538f936e2f2112b097b"
+    },
+    {
+      "bytes": 1037,
+      "compressed_bytes": 579,
+      "crc32": "c2782782",
+      "kind": "other",
+      "path": "documentation/methodology.md",
+      "read_only": true,
+      "sha256": "1519adbb119aaf767a780385f89f3784ec1c3902c42bef96ea846f698efb2eab"
+    },
+    {
+      "bytes": 2372,
+      "compressed_bytes": 1181,
+      "crc32": "65224a7e",
+      "kind": "other",
+      "path": "documentation/README.md",
+      "read_only": true,
+      "sha256": "0d6594d692d0e43cfddd911c68ee6a06e8480e9f2f6823433f1e927d2524f023"
+    },
+    {
+      "bytes": 1906,
+      "column_count": 2,
+      "compressed_bytes": 723,
+      "crc32": "8557546a",
+      "kind": "csv",
+      "path": "documentation/data_dictionary.csv",
+      "read_only": true,
+      "rows": 33,
+      "sha256": "878cee58be4c5d51c547c462d1510d4edce7ee3ae9bd83c319db3817da42b5f3"
+    },
+    {
+      "bytes": 1058,
+      "compressed_bytes": 375,
+      "crc32": "daf2eac8",
+      "kind": "other",
+      "path": "documentation/schema.sql",
+      "read_only": true,
+      "sha256": "6eebcd35e709aeecdb02046d774cbc208ec0288358a77bb7fd352f978d0360eb"
+    },
+    {
+      "bytes": 83513808,
+      "column_count": 19,
+      "compressed_bytes": 12155128,
+      "crc32": "d7451c87",
+      "kind": "csv",
+      "path": "data/raw/VIIRS_NOAA20_SP_raw.csv",
+      "read_only": true,
+      "rows": 670823,
+      "sha256": "9be58e92c95996aa0de0cf9064d4613370c721b21e9d7fe3d10a1997a83ebcfb"
+    },
+    {
+      "bytes": 3053,
+      "column_count": 5,
+      "compressed_bytes": 507,
+      "crc32": "43bc34c1",
+      "kind": "csv",
+      "path": "data/raw/retrieval_log.csv",
+      "read_only": true,
+      "rows": 60,
+      "sha256": "b803f3ed1bf7a5eede6364ca12e92293fbf73a7476571b0f350398f55306e6c3"
+    },
+    {
+      "bytes": 19592235,
+      "column_count": 19,
+      "compressed_bytes": 3008942,
+      "crc32": "b808439f",
+      "kind": "csv",
+      "path": "data/raw/MODIS_SP_raw.csv",
+      "read_only": true,
+      "rows": 166733,
+      "sha256": "5c985649fe90737bf2c697f4c10241ad981485278307be5512b107b999f399d4"
+    },
+    {
+      "bytes": 65692894,
+      "column_count": 19,
+      "compressed_bytes": 9794581,
+      "crc32": "dc466bdc",
+      "kind": "csv",
+      "path": "data/raw/VIIRS_SNPP_SP_raw.csv",
+      "read_only": true,
+      "rows": 545196,
+      "sha256": "8c86a63960e38d60155660d6156eba8f11e02b8d27077e0ab319c4e4e51c106d"
+    },
+    {
+      "bytes": 141963146,
+      "column_count": 29,
+      "compressed_bytes": 25124400,
+      "crc32": "82507616",
+      "kind": "csv",
+      "path": "data/cleaned/VIIRS_NOAA20_SP_cleaned.csv",
+      "read_only": true,
+      "rows": 670823,
+      "sha256": "e94747a61c8d79c9475a8dee09dd4d4ee99fd7f511b804847324969ca9daba4b"
+    },
+    {
+      "bytes": 33340214,
+      "column_count": 29,
+      "compressed_bytes": 6448446,
+      "crc32": "bf6dac80",
+      "kind": "csv",
+      "path": "data/cleaned/MODIS_SP_cleaned.csv",
+      "read_only": true,
+      "rows": 166733,
+      "sha256": "b700c6c752001a1687d174e7dc0a4101de9826f660025feb9354a785847068ae"
+    },
+    {
+      "bytes": 113190858,
+      "column_count": 29,
+      "compressed_bytes": 20356862,
+      "crc32": "7ed8a87c",
+      "kind": "csv",
+      "path": "data/cleaned/VIIRS_SNPP_SP_cleaned.csv",
+      "read_only": true,
+      "rows": 545196,
+      "sha256": "66ab095b2f9448ebabe4ed7493ea3703d13be4e9b593fb989e4785ef2fa9d67b"
+    },
+    {
+      "bytes": 1138740487,
+      "column_count": 33,
+      "compressed_bytes": 71104812,
+      "crc32": "1feef300",
+      "kind": "jsonl",
+      "path": "data/processed/NASA_Fire_Harmonized_Master.jsonl",
+      "read_only": true,
+      "rows": 1382752,
+      "sha256": "23ea24568425f7ab3d45d9b2dc46d50bd5f526fb28eb3c29098f85fa387227cc"
+    },
+    {
+      "bytes": 337078271,
+      "column_count": 33,
+      "compressed_bytes": 55161109,
+      "crc32": "635aae9c",
+      "kind": "csv",
+      "path": "data/processed/NASA_Fire_Harmonized_Master.csv",
+      "read_only": true,
+      "rows": 1382752,
+      "sha256": "baffd3773f413b8f7757717ab824e1270e74cf9b7175c55d28e562483a7db93c"
+    }
+  ],
+  "generated_at_utc": "2026-11-09T03:57:35.214846+00:00",
+  "immutable": true,
+  "raw_root": "C:/Users/cneni/OneDrive/Desktop/DMS/NASA_APPS/newwww/data/raw/NASA_Fire_Data_Engine",
+  "schema_version": "phase0.manifest.v1",
+  "source_archive": {
+    "bytes": 203164772,
+    "file_entries": 20,
+    "path": "NASA_SpaceApps_Task2_Completed.zip",
+    "sha256": "09aa2c1da7fbb8d030df5dc6faa0b95ba879a1fffd44374d7fd95aa77d2db0b8"
+  },
+  "source_documents": [
+    {
+      "bytes": 46423,
+      "path": "final system architecture.docx",
+      "preserved": true,
+      "sha256": "32b6e3a207a5cceddbe94787825e13641ad33e777667eb25d0e643fac7e0997a"
+    },
+    {
+      "bytes": 21343,
+      "path": "FireSync_MODIS_VIIRS Harmonization System.docx",
+      "preserved": true,
+      "sha256": "bd7f4d3ce5e907142e2bacbd5628234f9975509b4abce5c5033017bd16036988"
+    },
+    {
+      "bytes": 20948,
+      "path": "Implication Architecture.docx",
+      "preserved": true,
+      "sha256": "effcf46e648c5c60da5af89f65ce2f61044384ab0470b0848de590a46972bb4a"
+    },
+    {
+      "bytes": 48532,
+      "path": "layoutnew.docx",
+      "preserved": true,
+      "sha256": "a77cf0fef7b6cb51ebb180cfa42f314509bf7866380e7981b4329592fb3d2a9d"
+    },
+    {
+      "bytes": 16519,
+      "path": "NASA SPACE APPS CHALLENGE 2026 Problem Statement.docx",
+      "preserved": true,
+      "sha256": "0bfe0673d929ba49351c051df497e88490b09ab99759699b054c604b8ac0a6df"
+    }
+  ],
+  "stats": {
+    "csv": {
+      "data/cleaned/MODIS_SP_cleaned.csv": {
+        "column_count": 29,
+        "columns": [
+          "latitude",
+          "longitude",
+          "brightness",
+          "scan",
+          "track",
+          "acq_date",
+          "acq_time",
+          "satellite",
+          "instrument",
+          "confidence",
+          "version",
+          "bright_t31",
+          "frp",
+          "daynight",
+          "type",
+          "source_product",
+          "sampling_region",
+          "sample_window_start",
+          "sample_window_days",
+          "confidence_raw",
+          "quality_flag_invalid_frp",
+          "quality_flag_invalid_scan_track",
+          "brightness_temperature_primary_k",
+          "brightness_temperature_secondary_k",
+          "brightness_primary_source",
+          "confidence_encoding",
+          "acquisition_date",
+          "acquisition_time_utc",
+          "observation_id"
+        ],
+        "groups": {},
+        "rows": 166733,
+        "time_format": null
+      },
+      "data/cleaned/VIIRS_NOAA20_SP_cleaned.csv": {
+        "column_count": 29,
+        "columns": [
+          "latitude",
+          "longitude",
+          "bright_ti4",
+          "scan",
+          "track",
+          "acq_date",
+          "acq_time",
+          "satellite",
+          "instrument",
+          "confidence",
+          "version",
+          "bright_ti5",
+          "frp",
+          "daynight",
+          "type",
+          "source_product",
+          "sampling_region",
+          "sample_window_start",
+          "sample_window_days",
+          "confidence_raw",
+          "quality_flag_invalid_frp",
+          "quality_flag_invalid_scan_track",
+          "brightness_temperature_primary_k",
+          "brightness_temperature_secondary_k",
+          "brightness_primary_source",
+          "confidence_encoding",
+          "acquisition_date",
+          "acquisition_time_utc",
+          "observation_id"
+        ],
+        "groups": {},
+        "rows": 670823,
+        "time_format": null
+      },
+      "data/cleaned/VIIRS_SNPP_SP_cleaned.csv": {
+        "column_count": 29,
+        "columns": [
+          "latitude",
+          "longitude",
+          "bright_ti4",
+          "scan",
+          "track",
+          "acq_date",
+          "acq_time",
+          "satellite",
+          "instrument",
+          "confidence",
+          "version",
+          "bright_ti5",
+          "frp",
+          "daynight",
+          "type",
+          "source_product",
+          "sampling_region",
+          "sample_window_start",
+          "sample_window_days",
+          "confidence_raw",
+          "quality_flag_invalid_frp",
+          "quality_flag_invalid_scan_track",
+          "brightness_temperature_primary_k",
+          "brightness_temperature_secondary_k",
+          "brightness_primary_source",
+          "confidence_encoding",
+          "acquisition_date",
+          "acquisition_time_utc",
+          "observation_id"
+        ],
+        "groups": {},
+        "rows": 545196,
+        "time_format": null
+      },
+      "data/processed/NASA_Fire_Harmonized_Master.csv": {
+        "column_count": 33,
+        "columns": [
+          "observation_id",
+          "latitude",
+          "longitude",
+          "acquisition_date",
+          "acquisition_time_utc",
+          "satellite",
+          "instrument",
+          "source_product",
+          "frp_mw",
+          "brightness_temperature_primary_k",
+          "brightness_temperature_secondary_k",
+          "brightness_primary_source",
+          "confidence_raw",
+          "confidence_encoding",
+          "daynight",
+          "type",
+          "scan",
+          "track",
+          "sampling_region",
+          "sample_window_start",
+          "sample_window_days",
+          "version",
+          "source_file",
+          "brightness",
+          "acq_date",
+          "acq_time",
+          "confidence",
+          "bright_t31",
+          "frp",
+          "quality_flag_invalid_frp",
+          "quality_flag_invalid_scan_track",
+          "bright_ti4",
+          "bright_ti5"
+        ],
+        "groups": {
+          "sampling_region": {
+            "Amazon": 234554,
+            "Australia": 70137,
+            "California": 46622,
+            "Southern_Africa": 1031439
+          },
+          "satellite": {
+            "Aqua": 127704,
+            "N": 545196,
+            "N20": 670823,
+            "Terra": 39029
+          }
+        },
+        "rows": 1382752,
+        "time_format": {
+          "column": "acquisition_time_utc",
+          "counts": {
+            "padded_4_digit": 1205303,
+            "unpadded_1_digit": 4950,
+            "unpadded_2_digit": 15306,
+            "unpadded_3_digit": 157193
+          },
+          "examples": {
+            "padded_4_digit": [
+              "1344",
+              "1345",
+              "1346",
+              "1347",
+              "1523"
+            ],
+            "unpadded_1_digit": [
+              "6",
+              "7",
+              "8",
+              "9",
+              "4"
+            ],
+            "unpadded_2_digit": [
+              "55",
+              "35",
+              "36",
+              "57",
+              "58"
+            ],
+            "unpadded_3_digit": [
+              "118",
+              "119",
+              "120",
+              "256",
+              "257"
+            ]
+          },
+          "total": 1382752
+        }
+      },
+      "data/raw/MODIS_SP_raw.csv": {
+        "column_count": 19,
+        "columns": [
+          "latitude",
+          "longitude",
+          "brightness",
+          "scan",
+          "track",
+          "acq_date",
+          "acq_time",
+          "satellite",
+          "instrument",
+          "confidence",
+          "version",
+          "bright_t31",
+          "frp",
+          "daynight",
+          "type",
+          "source_product",
+          "sampling_region",
+          "sample_window_start",
+          "sample_window_days"
+        ],
+        "groups": {},
+        "rows": 166733,
+        "time_format": null
+      },
+      "data/raw/VIIRS_NOAA20_SP_raw.csv": {
+        "column_count": 19,
+        "columns": [
+          "latitude",
+          "longitude",
+          "bright_ti4",
+          "scan",
+          "track",
+          "acq_date",
+          "acq_time",
+          "satellite",
+          "instrument",
+          "confidence",
+          "version",
+          "bright_ti5",
+          "frp",
+          "daynight",
+          "type",
+          "source_product",
+          "sampling_region",
+          "sample_window_start",
+          "sample_window_days"
+        ],
+        "groups": {},
+        "rows": 670823,
+        "time_format": null
+      },
+      "data/raw/VIIRS_SNPP_SP_raw.csv": {
+        "column_count": 19,
+        "columns": [
+          "latitude",
+          "longitude",
+          "bright_ti4",
+          "scan",
+          "track",
+          "acq_date",
+          "acq_time",
+          "satellite",
+          "instrument",
+          "confidence",
+          "version",
+          "bright_ti5",
+          "frp",
+          "daynight",
+          "type",
+          "source_product",
+          "sampling_region",
+          "sample_window_start",
+          "sample_window_days"
+        ],
+        "groups": {},
+        "rows": 545196,
+        "time_format": null
+      },
+      "data/raw/retrieval_log.csv": {
+        "column_count": 5,
+        "columns": [
+          "source",
+          "region",
+          "date",
+          "status",
+          "records"
+        ],
+        "groups": {},
+        "rows": 60,
+        "time_format": null
+      },
+      "documentation/data_dictionary.csv": {
+        "column_count": 2,
+        "columns": [
+          "column",
+          "description"
+        ],
+        "groups": {},
+        "rows": 33,
+        "time_format": null
+      },
+      "reports/cleaning_audit.csv": {
+        "column_count": 6,
+        "columns": [
+          "dataset",
+          "operation",
+          "records_before",
+          "records_after",
+          "excluded_invalid",
+          "duplicates_removed"
+        ],
+        "groups": {},
+        "rows": 3,
+        "time_format": null
+      },
+      "reports/cleaning_quality_report.csv": {
+        "column_count": 10,
+        "columns": [
+          "dataset",
+          "records_before",
+          "records_after",
+          "invalid_location_or_date_excluded",
+          "duplicate_records_removed",
+          "missing_cells_before",
+          "missing_cells_after",
+          "invalid_frp_flagged",
+          "invalid_scan_track_flagged",
+          "output_file"
+        ],
+        "groups": {},
+        "rows": 3,
+        "time_format": null
+      },
+      "reports/master_validation_report.csv": {
+        "column_count": 2,
+        "columns": [
+          "check",
+          "result"
+        ],
+        "groups": {},
+        "rows": 9,
+        "time_format": null
+      },
+      "reports/missing_values_report.csv": {
+        "column_count": 2,
+        "columns": [
+          "",
+          "missing_count"
+        ],
+        "groups": {},
+        "rows": 33,
+        "time_format": null
+      },
+      "reports/repository_inventory.csv": {
+        "column_count": 2,
+        "columns": [
+          "file",
+          "size_MB"
+        ],
+        "groups": {},
+        "rows": 19,
+        "time_format": null
+      }
+    },
+    "jsonl": {
+      "data/processed/NASA_Fire_Harmonized_Master.jsonl": {
+        "acquisition_time_utc_examples": [
+          118,
+          118,
+          118,
+          118,
+          118
+        ],
+        "acquisition_time_utc_types": {
+          "int": 1000
+        },
+        "column_count": 33,
+        "columns": [
+          "observation_id",
+          "latitude",
+          "longitude",
+          "acquisition_date",
+          "acquisition_time_utc",
+          "satellite",
+          "instrument",
+          "source_product",
+          "frp_mw",
+          "brightness_temperature_primary_k",
+          "brightness_temperature_secondary_k",
+          "brightness_primary_source",
+          "confidence_raw",
+          "confidence_encoding",
+          "daynight",
+          "type",
+          "scan",
+          "track",
+          "sampling_region",
+          "sample_window_start",
+          "sample_window_days",
+          "version",
+          "source_file",
+          "brightness",
+          "acq_date",
+          "acq_time",
+          "confidence",
+          "bright_t31",
+          "frp",
+          "quality_flag_invalid_frp",
+          "quality_flag_invalid_scan_track",
+          "bright_ti4",
+          "bright_ti5"
+        ],
+        "lines": 1382752,
+        "sample_size": 1000
+      }
+    }
+  },
+  "verification": {
+    "csv_jsonl_row_count_equal": true,
+    "jsonl_rows": 1382752,
+    "master_columns": 33,
+    "master_rows": 1382752,
+    "master_rows_expected": 1382752,
+    "master_rows_match": true,
+    "master_time_format": {
+      "column": "acquisition_time_utc",
+      "counts": {
+        "padded_4_digit": 1205303,
+        "unpadded_1_digit": 4950,
+        "unpadded_2_digit": 15306,
+        "unpadded_3_digit": 157193
+      },
+      "examples": {
+        "padded_4_digit": [
+          "1344",
+          "1345",
+          "1346",
+          "1347",
+          "1523"
+        ],
+        "unpadded_1_digit": [
+          "6",
+          "7",
+          "8",
+          "9",
+          "4"
+        ],
+        "unpadded_2_digit": [
+          "55",
+          "35",
+          "36",
+          "57",
+          "58"
+        ],
+        "unpadded_3_digit": [
+          "118",
+          "119",
+          "120",
+          "256",
+          "257"
+        ]
+      },
+      "total": 1382752
+    },
+    "region_counts": {
+      "Amazon": 234554,
+      "Australia": 70137,
+      "California": 46622,
+      "Southern_Africa": 1031439
+    },
+    "satellite_counts": {
+      "Aqua": 127704,
+      "N": 545196,
+      "N20": 670823,
+      "Terra": 39029
+    },
+    "satellite_counts_expected": {
+      "Aqua": 127704,
+      "N": 545196,
+      "N20": 670823,
+      "Terra": 39029
+    },
+    "satellite_counts_match": {
+      "Aqua": true,
+      "N": true,
+      "N20": true,
+      "Terra": true
+    }
+  }
+}

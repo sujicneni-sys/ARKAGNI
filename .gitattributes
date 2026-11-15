@@ -1,0 +1,7 @@
+# Never let Git rewrite bytes it will be asked to hash.
+* text=auto eol=lf
+*.csv     -text
+*.tsv     -text
+*.parquet -text
+*.pkl     -text
+*.jsonl   -text

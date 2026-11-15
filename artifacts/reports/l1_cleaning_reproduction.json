@@ -1,0 +1,96 @@
+{
+  "generated_at_utc": "2026-11-09T04:05:24.709933+00:00",
+  "overall": {
+    "columns_compared": 28,
+    "conclusion": "All 28 observable cleaned columns reproduce exactly for all three sensors. Observation IDs are supplied and preserved, not regenerated.",
+    "exact_match_all_sensors": true,
+    "mismatch_cells": 0,
+    "mismatched_rows": 0,
+    "observation_ids_reproduced": false,
+    "rows": 1382752
+  },
+  "per_sensor": {
+    "MODIS": {
+      "cleaned_path": "data/cleaned/MODIS_SP_cleaned.csv",
+      "cleaned_sha256": "b700c6c752001a1687d174e7dc0a4101de9826f660025feb9354a785847068ae",
+      "columns_compared": 28,
+      "exact_match": true,
+      "examples": {},
+      "mismatch_counts": {},
+      "mismatched_rows": 0,
+      "observation_id": {
+        "all_unique": true,
+        "count": 166733,
+        "note": "Observation IDs are an opaque supplied identifier. No documented algorithm defines them, so they are not re-derived; they are preserved unchanged in the canonical baseline.",
+        "reproduced": false,
+        "unique": 166733
+      },
+      "raw_path": "data/raw/MODIS_SP_raw.csv",
+      "raw_sha256": "5c985649fe90737bf2c697f4c10241ad981485278307be5512b107b999f399d4",
+      "reproduced_parquet": {
+        "bytes": 3082494,
+        "path": "data/interim/l1_reproduced_MODIS.parquet",
+        "sha256": "3975fd7f4ae5cc3826c8e2648b496d487e3d83760bfd1742b926d1d4cc7100a9"
+      },
+      "rows_baseline": 166733,
+      "rows_raw": 166733,
+      "rows_reproduced": 166733
+    },
+    "VIIRS_NOAA20": {
+      "cleaned_path": "data/cleaned/VIIRS_NOAA20_SP_cleaned.csv",
+      "cleaned_sha256": "e94747a61c8d79c9475a8dee09dd4d4ee99fd7f511b804847324969ca9daba4b",
+      "columns_compared": 28,
+      "exact_match": true,
+      "examples": {},
+      "mismatch_counts": {},
+      "mismatched_rows": 0,
+      "observation_id": {
+        "all_unique": true,
+        "count": 670823,
+        "note": "Observation IDs are an opaque supplied identifier. No documented algorithm defines them, so they are not re-derived; they are preserved unchanged in the canonical baseline.",
+        "reproduced": false,
+        "unique": 670823
+      },
+      "raw_path": "data/raw/VIIRS_NOAA20_SP_raw.csv",
+      "raw_sha256": "9be58e92c95996aa0de0cf9064d4613370c721b21e9d7fe3d10a1997a83ebcfb",
+      "reproduced_parquet": {
+        "bytes": 12389582,
+        "path": "data/interim/l1_reproduced_VIIRS_NOAA20.parquet",
+        "sha256": "73a965c4e5aea96a09842c715a9886d9b75efae93820b2b536910fcc44e5fac4"
+      },
+      "rows_baseline": 670823,
+      "rows_raw": 670823,
+      "rows_reproduced": 670823
+    },
+    "VIIRS_SNPP": {
+      "cleaned_path": "data/cleaned/VIIRS_SNPP_SP_cleaned.csv",
+      "cleaned_sha256": "66ab095b2f9448ebabe4ed7493ea3703d13be4e9b593fb989e4785ef2fa9d67b",
+      "columns_compared": 28,
+      "exact_match": true,
+      "examples": {},
+      "mismatch_counts": {},
+      "mismatched_rows": 0,
+      "observation_id": {
+        "all_unique": true,
+        "count": 545196,
+        "note": "Observation IDs are an opaque supplied identifier. No documented algorithm defines them, so they are not re-derived; they are preserved unchanged in the canonical baseline.",
+        "reproduced": false,
+        "unique": 545196
+      },
+      "raw_path": "data/raw/VIIRS_SNPP_SP_raw.csv",
+      "raw_sha256": "8c86a63960e38d60155660d6156eba8f11e02b8d27077e0ab319c4e4e51c106d",
+      "reproduced_parquet": {
+        "bytes": 10111422,
+        "path": "data/interim/l1_reproduced_VIIRS_SNPP.parquet",
+        "sha256": "dd0f319726ed6b7253bcdbdbf87f758876a058d00e55acbf5386ff8416692341"
+      },
+      "rows_baseline": 545196,
+      "rows_raw": 545196,
+      "rows_reproduced": 545196
+    }
+  },
+  "phase0_archive_sha256": "09aa2c1da7fbb8d030df5dc6faa0b95ba879a1fffd44374d7fd95aa77d2db0b8",
+  "rules_module": "src/pyroharmonize/l1.py",
+  "rules_sha256": "e1e544824c576093f7aa56047f4fd56b5902b31b6d19e0f53a50cc2180d81808",
+  "schema_version": "l1.cleaning_reproduction.v1"
+}

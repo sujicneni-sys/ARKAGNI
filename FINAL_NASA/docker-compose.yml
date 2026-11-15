@@ -1,0 +1,47 @@
+name: arkagni
+
+services:
+  api:
+    build:
+      context: .
+      dockerfile: Dockerfile.api
+    image: arkagni-api:1.0.0
+    container_name: arkagni-api
+    restart: unless-stopped
+    ports:
+      - "0.0.0.0:${API_PORT:-8000}:8000"
+    environment:
+      PYTHONUNBUFFERED: "1"
+    healthcheck:
+      test:
+        [
+          "CMD",
+          "python",
+          "-c",
+          "import urllib.request; urllib.request.urlopen('http://127.0.0.1:8000/health', timeout=4)",
+        ]
+      interval: 30s
+      timeout: 5s
+      start_period: 120s
+      retries: 3
+
+  batch:
+    profiles: ["batch"]
+    build:
+      context: .
+      dockerfile: Dockerfile.batch
+    image: arkagni-batch:1.0.0
+    volumes:
+      - ./artifacts:/app/artifacts
+      - ./data:/app/data
+    command:
+      - sh
+      - -c
+      - >-
+        python scripts/03_run_analysis.py --force &&
+        python scripts/04_verify_release.py &&
+        python -m pytest -q
+        tests/test_backend_contract.py
+        tests/test_models_artifact.py
+        tests/test_l2_pairing.py
+        tests/test_provenance.py

@@ -1,0 +1,5 @@
+# Reproducible L1-L5 batch environment.
+# Same scientific pins as the serving image, plus the analysis/test tooling.
+-r requirements-api.txt
+pytest==9.2.0
+httpx2>=2.16.0

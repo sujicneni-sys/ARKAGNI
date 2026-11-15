@@ -1,0 +1,3 @@
+# Production runtime dependencies. The legacy Streamlit prototype is not the
+# serving path; see README.md and pyproject.toml for the canonical stack.
+-r requirements-api.txt
