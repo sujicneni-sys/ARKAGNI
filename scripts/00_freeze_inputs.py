@@ -405,8 +405,10 @@ def main() -> int:
     )
     args = parser.parse_args()
 
+    # Cloud-safe check: Skip gracefully if the source archive is not present on Render
     if not args.archive.is_file():
-        raise SystemExit(f"source archive not found: {args.archive}")
+        print(f"[phase0] WARNING: source archive not found at {args.archive}. Skipping extraction for cloud deployment.")
+        return 0
 
     print(f"[phase0] archive: {args.archive}")
     print("[phase0] hashing archive entries ...")
