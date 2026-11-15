@@ -140,7 +140,9 @@ def _announce_urls() -> None:
         "on",
     }:
         return
-    url = os.environ.get("ARKAGNI_URL") or "http://localhost:8000"
+    url = os.environ.get("ARKAGNI_URL") or (
+        f"http://localhost:{os.environ.get('PORT', '8000')}"
+    )
     print("", flush=True)
     print(url, flush=True)
     print("", flush=True)
@@ -164,10 +166,10 @@ app = FastAPI(
     lifespan=lifespan,
 )
 
-_origins = config.load_config().get("serving", {}).get("allowed_origins", ["*"])
+_origins = ["*"]
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=_origins or ["*"],
+    allow_origins=_origins,
     allow_credentials=False,
     allow_methods=["GET", "POST"],
     allow_headers=["*"],
@@ -1160,3 +1162,13 @@ else:
             "docs": "/docs",
             "health": "/health",
         }
+
+
+if __name__ == "__main__":
+    import uvicorn
+
+    uvicorn.run(
+        "backend.main:app",
+        host="0.0.0.0",
+        port=int(os.environ.get("PORT", "8000")),
+    )

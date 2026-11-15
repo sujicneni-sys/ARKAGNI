@@ -19,9 +19,9 @@ import sys
 from pathlib import Path
 
 PROJECT_ROOT = Path(__file__).resolve().parents[1]
-URL = "http://localhost:8000"
-HOST = "127.0.0.1"
-PORT = "8000"
+PORT = os.environ.get("PORT", "8000")
+HOST = "0.0.0.0"
+URL = os.environ.get("ARKAGNI_URL", f"http://localhost:{PORT}")
 DIST_INDEX = PROJECT_ROOT / "frontend" / "dist" / "index.html"
 
 

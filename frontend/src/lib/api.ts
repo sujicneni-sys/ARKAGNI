@@ -11,7 +11,14 @@ import type {
   VersionData,
 } from "./types";
 
-const API_BASE = (import.meta.env.VITE_API_BASE ?? "").replace(/\/$/, "");
+// Same-origin by default: in production the FastAPI service serves the built
+// SPA from its own port, so every request must stay relative.  Only set
+// VITE_API_URL (or the legacy VITE_API_BASE) when the API lives elsewhere.
+const API_BASE = (
+  import.meta.env.VITE_API_URL ??
+  import.meta.env.VITE_API_BASE ??
+  ""
+).replace(/\/$/, "");
 
 export class ApiError extends Error {
   readonly status: number;
