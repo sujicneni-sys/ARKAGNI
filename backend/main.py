@@ -814,361 +814,44 @@ def _live_payload_from_frame(frame: pd.DataFrame) -> HarmonizeRequest:
     }
     if lst is not None:
         kwargs["lst_aqua_h"] = lst.tolist()
-
     if "acquisition_time_utc" in chosen:
-        raw_times = frame[chosen["acquisition_time_utc"]].astype(str).str.strip()
-        kwargs["acquisition_time_utc"] = [
-            value.split("T")[-1].split(" ")[-1][:5] for value in raw_times.tolist()
-        ]
-
+        kwargs["acquisition_time_utc"] = frame[chosen["acquisition_time_utc"]].astype(str).tolist()
     if "latitude" in chosen:
         kwargs["latitude"] = _number_column(frame, chosen["latitude"], "latitude").tolist()
     if "longitude" in chosen:
         kwargs["longitude"] = _number_column(frame, chosen["longitude"], "longitude").tolist()
+    if "date" in chosen:
+        kwargs["date"] = frame[chosen["date"]].astype(str).tolist()
     if "area_ratio" in chosen:
         kwargs["area_ratio"] = _number_column(frame, chosen["area_ratio"], "area_ratio").tolist()
 
-    if "date" in chosen:
-        parsed = pd.to_datetime(frame[chosen["date"]], errors="coerce")
-        bad = np.flatnonzero(parsed.isna().to_numpy())
-        if bad.size:
-            sample = ", ".join(str(int(index) + 1) for index in bad[:5])
-            raise _reject("invalid_date", f"Column 'date' is not an ISO date on row(s) {sample}.")
-        kwargs["date"] = parsed.dt.strftime("%Y-%m-%d").tolist()
-
-    try:
-        return HarmonizeRequest(**kwargs)
-    except ValidationError as exc:
-        fields = [
-            {
-                "field": ".".join(str(part) for part in error.get("loc", ())),
-                "message": str(error.get("msg", "invalid value")),
-                "type": str(error.get("type", "value_error")),
-            }
-            for error in exc.errors()
-        ]
-        raise _reject(
-            "validation_error",
-            "The uploaded rows failed boundary validation.",
-            fields=fields,
-        ) from exc
+    return HarmonizeRequest(**kwargs)
 
 
-@app.post("/live-analysis")
-async def live_analysis(
-    request: Request,
-    filename: str = Query("upload.csv", max_length=200),
-) -> JSONResponse:
-    """Score an uploaded CSV/Parquet batch through the frozen L5 pipeline.
-
-    The endpoint parses only the documented cell-day columns, maps friendly
-    aliases (for example ``delay_h``) onto the same request schema as
-    ``POST /harmonize`` and returns the identical per-cell payload.  It does
-    not fit, tune or write anything.
-    """
+@app.post("/harmonize/upload")
+async def harmonize_upload(request: Request) -> JSONResponse:
+    """Accept a CSV or Parquet file upload, parse it into columns, and harmonize."""
     content_length = request.headers.get("content-length")
-    if content_length and content_length.isdigit() and int(content_length) > LIVE_MAX_BYTES:
-        raise HTTPException(
-            status_code=413,
-            detail={
-                "code": "file_too_large",
-                "message": f"Upload at most {LIVE_MAX_BYTES // 1_000_000} MB per request.",
-            },
-        )
-
-    raw = await request.body()
-    if not raw:
-        raise HTTPException(
-            status_code=400,
-            detail={"code": "empty_upload", "message": "The upload body is empty."},
-        )
-    if len(raw) > LIVE_MAX_BYTES:
-        raise HTTPException(
-            status_code=413,
-            detail={
-                "code": "file_too_large",
-                "message": f"Upload at most {LIVE_MAX_BYTES // 1_000_000} MB per request.",
-            },
-        )
-
-    frame = _parse_live_table(raw, Path(filename).name)
+    if content_length and int(content_length) > LIVE_MAX_BYTES:
+        raise _reject("file_too_large", f"File size exceeds the {LIVE_MAX_BYTES:,} byte limit.")
+    body = await request.body()
+    if len(body) > LIVE_MAX_BYTES:
+        raise _reject("file_too_large", f"File size exceeds the {LIVE_MAX_BYTES:,} byte limit.")
+    
+    filename = request.headers.get("x-filename", "upload.csv")
+    frame = _parse_live_table(body, filename)
     if len(frame) > LIVE_MAX_ROWS:
-        raise _reject(
-            "too_many_rows",
-            f"This public tester accepts up to {LIVE_MAX_ROWS:,} rows per upload; "
-            f"received {len(frame):,}.",
-        )
+        raise _reject("too_many_rows", f"File has {len(frame):,} rows; maximum allowed is {LIVE_MAX_ROWS:,}.")
+    
+    payload = _live_payload_from_frame(frame)
+    return harmonize(payload)
 
-    return harmonize(_live_payload_from_frame(frame))
-
-
-# ---------------------------------------------------------------------------
-# Read-only data explorer support
-# ---------------------------------------------------------------------------
-
-
-def _load_observations() -> pd.DataFrame:
-    if state.observations is not None:
-        return state.observations
-    if state.ingestion is None:
-        raise HTTPException(
-            status_code=503,
-            detail={
-                "code": "ingestion_unavailable",
-                "message": "Real cleaned-CSV ingestion has not completed; the explorer is unavailable.",
-            },
-        )
-    state.observations = state.ingestion.observations
-    return state.observations
-
-
-def _load_pairs() -> pd.DataFrame:
-    if state.pairs is not None:
-        return state.pairs
-    if state.ingestion is None:
-        raise HTTPException(
-            status_code=503,
-            detail={
-                "code": "ingestion_unavailable",
-                "message": "Real cleaned-CSV ingestion has not completed; audit detail is unavailable.",
-            },
-        )
-    state.pairs = state.ingestion.pairs
-    return state.pairs
-
-
-@app.get("/observations")
-def observations(
-    region: str | None = None,
-    satellite: str | None = None,
-    year: int | None = Query(None, ge=2021, le=2025),
-    status: str | None = None,
-    daynight: str | None = None,
-    search: str | None = None,
-    sort_by: str = Query("date"),
-    sort_dir: str = Query("desc", pattern=r"^(asc|desc)$"),
-    page: int = Query(1, ge=1),
-    page_size: int = Query(25, ge=1, le=200),
-) -> dict[str, Any]:
-    frame = _load_observations()
-    filtered = frame
-    if region:
-        filtered = filtered[filtered["sampling_region"].str.lower() == region.lower()]
-    if satellite:
-        aliases = {
-            "modis": ["Aqua", "Terra"],
-            "aqua": ["Aqua"],
-            "terra": ["Terra"],
-            "snpp": ["N"],
-            "suomi-npp": ["N"],
-            "noaa-20": ["N20"],
-            "noaa20": ["N20"],
-        }
-        values = aliases.get(satellite.lower(), [satellite])
-        filtered = filtered[filtered["satellite"].isin(values)]
-    if year:
-        filtered = filtered[filtered["year"] == year]
-    if status:
-        filtered = filtered[filtered["status"] == status.lower()]
-    if daynight:
-        filtered = filtered[filtered["daynight"].str.upper() == daynight.upper()]
-    if search:
-        needle = search.strip().lower()
-        if needle:
-            mask = filtered["observation_id"].astype("string").str.lower().str.contains(needle, na=False)
-            mask |= filtered["cell_id"].astype("string").str.lower().str.contains(needle, na=False)
-            filtered = filtered[mask]
-
-    sort_columns = {
-        "observation_id": "observation_id",
-        "satellite": "satellite",
-        "region": "sampling_region",
-        "latitude": "latitude",
-        "longitude": "longitude",
-        "date": "acquisition_date",
-        "utc": "acquisition_time_utc",
-        "lst": "lst",
-        "frp": "frp",
-        "scan": "scan",
-        "status": "status",
-    }
-    column = sort_columns.get(sort_by, "acquisition_date")
-    filtered = filtered.sort_values(column, ascending=(sort_dir == "asc"), kind="stable")
-    total = int(len(filtered))
-    start = (page - 1) * page_size
-    page_frame = filtered.iloc[start : start + page_size]
-    rows = []
-    for _, row in page_frame.iterrows():
-        rows.append(
-            {
-                "observation_id": str(row["observation_id"]),
-                "satellite": str(row["satellite"]),
-                "region": str(row["sampling_region"]),
-                "latitude": _json_safe(round(float(row["latitude"]), 5)),
-                "longitude": _json_safe(round(float(row["longitude"]), 5)),
-                "cell": str(row["cell_id"]),
-                "date": row["acquisition_date"].date().isoformat(),
-                "window_start": row["sample_window_start"].date().isoformat(),
-                "utc": str(row["utc_display"]),
-                "lst": _json_safe(round(float(row["lst"]), 4)),
-                "lst_display": str(row["lst_display"]),
-                "lst_derivation": "lst = (UTC hours + longitude / 15) mod 24",
-                "frp_mw": _json_safe(round(float(row["frp"]), 4)),
-                "scan_km": _json_safe(round(float(row["scan"]), 4)),
-                "track_km": _json_safe(round(float(row["track"]), 4)),
-                "status": str(row["status"]),
-                "flags_uint8": int(row["flags"]),
-                "time_was_padded": bool(row["l1_time_was_padded"]),
-            }
-        )
-    return {
-        "total": total,
-        "page": page,
-        "page_size": page_size,
-        "pages": max(1, math.ceil(total / page_size)),
-        "has_more": start + page_size < total,
-        "sort_by": sort_by,
-        "sort_dir": sort_dir,
-        "rows": rows,
-    }
-
-
-@lru_cache(maxsize=1)
-def _summary_payload() -> dict[str, Any]:
-    frame = _load_observations()
-    pairs = _load_pairs()
-
-    satellite_year = []
-    grouped = frame.groupby(["satellite", "year"], observed=True)["lst"]
-    for (satellite, year), values in grouped:
-        satellite_year.append(
-            {
-                "satellite": str(satellite),
-                "year": int(year),
-                "n": int(values.size),
-                "lst_median_h": _json_safe(round(float(values.median()), 4)),
-                "lst_p05_h": _json_safe(round(float(values.quantile(0.05)), 4)),
-                "lst_p95_h": _json_safe(round(float(values.quantile(0.95)), 4)),
-                "lst_median_display": core.format_lst([float(values.median())])[0],
-            }
-        )
-
-    frp_by_satellite = []
-    for satellite, values in frame.groupby("satellite", observed=True)["frp"]:
-        frp_by_satellite.append(
-            {
-                "satellite": str(satellite),
-                "n": int(values.size),
-                "median_mw": _json_safe(round(float(values.median()), 4)),
-                "p95_mw": _json_safe(round(float(values.quantile(0.95)), 4)),
-                "max_mw": _json_safe(round(float(values.max()), 4)),
-            }
-        )
-
-    status_counts = {
-        str(key): int(value) for key, value in frame["status"].value_counts().items()
-    }
-    daynight_counts = {
-        str(key): int(value) for key, value in frame["daynight"].value_counts().items()
-    }
-
-    pairs_by_year_region: dict[str, dict[str, int]] = {}
-    for (year, region), count in pairs.groupby(["year", "region"], observed=True).size().items():
-        pairs_by_year_region.setdefault(str(int(year)), {})[str(region)] = int(count)
-
-    sparse_notes = []
-    for year in sorted(frame["year"].unique()):
-        year_rows = int((frame["year"] == year).sum())
-        for region in sorted(frame["sampling_region"].unique()):
-            region_rows = int(
-                ((frame["year"] == year) & (frame["sampling_region"] == region)).sum()
-            )
-            matched = int(pairs_by_year_region.get(str(int(year)), {}).get(str(region), 0))
-            if region_rows > 0 and matched == 0:
-                sparse_notes.append(
-                    {
-                        "year": int(year),
-                        "region": str(region),
-                        "raw_rows": region_rows,
-                        "matched_pairs": 0,
-                        "message": (
-                            f"Calibration interrupt: {int(year)} has 0 matched pairs for "
-                            f"{region} while {region_rows:,} raw observations exist. "
-                            "Zero matched pairs is not zero raw observations."
-                        ),
-                    }
-                )
-
-    windows = state.results["dataset"]["window_starts"]
-    window_days = int(state.results["dataset"]["window_days"])
-    active_dates = sorted(
-        {
-            (pd.Timestamp(start) + pd.Timedelta(days=offset)).date().isoformat()
-            for start in windows
-            for offset in range(window_days)
-        }
-    )
-
-    return {
-        "satellite_year_lst": satellite_year,
-        "frp_by_satellite": frp_by_satellite,
-        "status_counts": status_counts,
-        "daynight_counts": daynight_counts,
-        "pairs_by_year_region": pairs_by_year_region,
-        "sparse_notes": sparse_notes,
-        "windows": windows,
-        "window_days": window_days,
-        "active_dates": active_dates,
-        "status_definition": {
-            "validated": "type == 0 AND FRP > 0 AND daynight == D",
-            "flagged": "zero FRP or night; retained with a flag",
-            "excluded": "type != 0 or negative FRP; retained with a flag",
-        },
-    }
-
-
-@app.get("/observations/summary")
-def observations_summary() -> dict[str, Any]:
-    return _summary_payload()
-
-
-@app.get("/audit/digital-twin")
-def audit_digital_twin() -> dict[str, Any]:
-    pairs = _load_pairs()
-    return {"digital_twin": audit.digital_twin(pairs, state.artifact)}
-
-
-@app.get("/audit/snapshot")
-def audit_snapshot() -> dict[str, Any]:
-    if state.audit_snapshot is None:
-        pairs = _load_pairs()
-        state.audit_snapshot = audit.audit_snapshot(state.results, pairs, state.artifact)
-    return state.audit_snapshot
-
-
-# ---------------------------------------------------------------------------
-# Static dashboard (L7) - same-origin in local and container deployment
-# ---------------------------------------------------------------------------
 
 if FRONTEND_DIST.is_dir():
-    app.mount("/", StaticFiles(directory=str(FRONTEND_DIST), html=True), name="dashboard")
-else:
-
-    @app.get("/")
-    def dashboard_missing() -> dict[str, Any]:
-        return {
-            "name": "Arkagni",
-            "message": "API is running. Build the dashboard with `npm run build` in frontend/.",
-            "docs": "/docs",
-            "health": "/health",
-        }
+    app.mount("/", StaticFiles(directory=str(FRONTEND_DIST), html=True), name="frontend")
 
 
 if __name__ == "__main__":
     import uvicorn
-
-    uvicorn.run(
-        "backend.main:app",
-        host="0.0.0.0",
-        port=int(os.environ.get("PORT", "8000")),
-    )
+    port = int(os.environ.get("PORT", 8000))
+    uvicorn.run("main:app", host="0.0.0.0", port=port)
